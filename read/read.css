@@ -1,0 +1,65 @@
+body {
+    font-weight: bold;
+    font-family: sans-serif;
+}
+
+body > div {
+    padding: 4px;
+    clear: both;
+}
+
+#main {
+    width: 100%;
+}
+
+.card, .punc {
+    float:left;
+
+    color: #999;
+    font-size: 4vw;
+    border-radius: 4px;
+    padding: 8px;
+    margin: 2px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.card {
+    border: 2px solid #666;
+}
+
+.correct {
+    border-color: #3a3;
+    background-color: #dfd;
+}
+
+.wrong {
+    border-color: #a33;
+    background-color: #fdd;
+}
+
+#main div:hover,
+.active {
+    border-color: #44f;
+    color: #229;
+}
+
+
+#out {
+    font-size: 3vw;
+}
+
+#out button {
+    width: 200px;
+}
+
+#out button, #out div{
+    float: left;
+    vertical-align:middle;
+    line-height: 4vw;
+        padding: 4px;
+}
+
+#out > div {
+    clear: both;
+}
