@@ -99,7 +99,7 @@ const createSentence = (container, sentenceId, sentence, cards) => {
 
     let i = 0;
     for (const word of sentence) {
-        const card = document.createElement('div');
+        const card = document.createElement('button');
         card.innerText = word;
         card.word = word.toLowerCase();
 

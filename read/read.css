@@ -3,6 +3,11 @@ body {
     font-family: sans-serif;
 }
 
+button.card {
+    font-weight: bold;
+    background-color: #fff;
+}
+
 body > div {
     padding: 4px;
     clear: both;
@@ -15,7 +20,7 @@ body > div {
 .card, .punc {
     float:left;
 
-    color: #999;
+    color: #888;
     font-size: 4vw;
     border-radius: 4px;
     padding: 8px;
@@ -38,7 +43,7 @@ body > div {
     background-color: #fdd;
 }
 
-#main div:hover,
+#main .card:hover,
 .active {
     border-color: #44f;
     color: #229;
