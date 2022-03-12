@@ -185,8 +185,10 @@ const createBook = (words) => {
 };
 
 window.onload = () => {
-    const allShort = Object.values(SHORTS).reduce((a, b) => a + ' ' + b);
-    createBook((FIRST_WORDS[0] + ' ' + allShort).split(' '));
+    const allShort = Object.values(SHORTS)
+        .reduce((a, b) => a + ' ' + b);
+    const shortWords = allShort.split(' ').filter((e) => Math.random() > 0.3);
+    createBook(FIRST_WORDS[0].split(' ').concat(shortWords));
 
     document.getElementById('listen').onclick = () => {
         activateNext();
