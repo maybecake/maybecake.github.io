@@ -203,6 +203,7 @@ const createCustom = (containerEl) => {
     customSentenceEl.appendChild(playBtn);
 
     const customSentence = document.createElement('div');
+    customSentence.setAttribute('contenteditable', true);
     customSentenceEl.onclick = (e) => {
         setActiveCustom(customSentenceEl, /*add=*/ e.ctrlKey);
     }
