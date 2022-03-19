@@ -1,58 +1,9 @@
-// Simple server in powershell: python -m http.server
-
-const SpeechRecognition = webkitSpeechRecognition;
-const SpeechGrammarList = webkitSpeechGrammarList;
-// const SpeechRecognitionEvent = webkitSpeechRecognitionEvent;
-
-const BOOK = [
-    // page
-    [ // sentence
-        'winry and hana went to the zoo .',
-        'winry likes to look at animals ,',
-        'the zoo has many animals .'
-    ],
-    ['hana saw a big pink monkey .',
-        'she also saw a small rabbit .'],
-    ['the rabbit hopped up and down .',
-        'winry saw a yellow bird .',
-        'winry is happy to see the bird .'],
-    ['hana is looking for a snake .',
-        'hana found a small snake with red dots .'],
-    ['winry and hana had fun at the zoo.',
-        'they saw a lot of animals.'],
-];
-
-const WINRY = ['winry hana'];
-
-const BASIC_WORDS =
-    'the of and a to in is that it was for on are as with they i she her at ' +
-    'be this have from or one had by words but not what all were we when ' +
-    'your can said there use an each which she do how their if will up other ' +
-    'about out many then them these so some her would make like him into ' +
-    'time has look two more write go see number no way could people my than ' +
-    'first water been called who am its now find long down day did get come ' +
-    'made may part'.split(' ');
-
-const SHORTS = {
-    'a': 'ant bat cat cad mat sat hat rat bat can man bad ran lad sad had fad tad',
-    'e': 'bed led fed pen den men ten let net wet pet get set bet yet',
-    'i': 'fit wit hit lit sit tin kin win pin pit big jig pig rig',
-    'o': 'cot pot got hot lot rod pod cod log dog fog hog rob',
-    'u': 'fun run sun pun rut gun hut nut shut cut mud tug rub tab grub',
-};
-
-const ANIMALS = [
-    'pig rat rabbit monkey dog bear lion mouse fish shark',
-];
-
-const NUMBERS = [
-    'one two three four five six seven eight nine ten',
-];
+import { ZOO_BOOK } from "./books.js";
 
 const PUNCTUATION = ',.?!';
 const CONFIDENCE_THRESHOLD = 0.6;
 
-const AUDIO_SYMBOL = '&#128266;';
+const AUDIO_SYMBOL = '🔊';
 
 const loadVoiceOptions = () => {
     const voices = speechSynthesis.getVoices();
@@ -68,12 +19,11 @@ const loadVoiceOptions = () => {
 
     if (!selected) {
         const voice = voices.filter((v) => v.name.includes('Google') && v.name.includes('English'));
-        console.log(voice);
         if (voice.length > 0) {
             voiceSel.value = voice[0].name;
         }
     }
-}
+};
 
 const readText = (text) => {
     const msg = new SpeechSynthesisUtterance();
@@ -156,7 +106,7 @@ const createPage = (containerEl, page) => {
     }
     pageEl.setAttribute('hidden', '');
     containerEl.appendChild(pageEl);
-}
+};
 
 const createSentence = (containerEl, sentence) => {
     const sentenceEl = document.createElement('div');
@@ -187,7 +137,6 @@ const createSentence = (containerEl, sentence) => {
         sentenceEl.appendChild(cardBtn);
 
     }
-    activeIndex = -1;
     containerEl.appendChild(sentenceEl);
 };
 
@@ -206,14 +155,14 @@ const createCustom = (containerEl) => {
     customSentence.setAttribute('contenteditable', true);
     customSentenceEl.onclick = (e) => {
         setActiveCustom(customSentenceEl, /*add=*/ e.ctrlKey);
-    }
+    };
     customSentenceEl.appendChild(customSentence);
     customSentenceEl.addText = (text) => {
         customSentence.innerText += ' ' + text;
     };
 
     const delBtn = document.createElement('button');
-    delBtn.innerHTML = '&#9664;';
+    delBtn.innerHTML = '◀';
     delBtn.onclick = () => {
         const lastSpace = customSentence.innerText.lastIndexOf(' ');
         if (lastSpace)
@@ -223,7 +172,7 @@ const createCustom = (containerEl) => {
 
 
     const clearBtn = document.createElement('button');
-    clearBtn.innerHTML = '&#9851;';
+    clearBtn.innerHTML = '♻';
     clearBtn.onclick = () => {
         containerEl.removeChild(customSentenceEl);
     };
@@ -252,16 +201,10 @@ const setActiveCustom = (customSentenceEl, add = false) => {
 
 const getActiveCustoms = () => {
     const containerEl = document.getElementById('custom-sentences-out');
-    console.log(containerEl.querySelectorAll('*[active]'));
     return containerEl.querySelectorAll('*[active]');
-}
+};
 
 window.onload = () => {
-    // const allShort = Object.values(SHORTS)
-    //     .reduce((a, b) => a + ' ' + b);
-    //     const shortWords = allShort.split(' ').filter((e) => Math.random() >
-    //     0.3);
-
     loadVoiceOptions();
     window.speechSynthesis.onvoiceschanged = () => {
         loadVoiceOptions();
@@ -270,10 +213,10 @@ window.onload = () => {
     // Create the book.
     const book = createBook(
         document.getElementById('main'),
-        BOOK);
+        ZOO_BOOK.pages);
 
     // Generate custom sentences.
     document.getElementById('addCustom').onclick = () => {
         createCustom(document.getElementById('custom-sentences-out'));
     };
-}
+};
