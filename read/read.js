@@ -313,7 +313,7 @@ window.onload = () => {
 
     // Generate a custom sentence.
     document.getElementById('addCustom').onclick = () => {
-        const out = document.getElementById('out');
+        const outputEl = document.getElementById('custom-sentences-out');
 
         const row = document.createElement('div');
         row.className = 'custom-sentence';
@@ -336,11 +336,11 @@ window.onload = () => {
         const clearBtn = document.createElement('button');
         clearBtn.innerHTML = '&#9851;';
         clearBtn.onclick = () => {
-            out.removeChild(row);
+            outputEl.removeChild(row);
         };
         row.appendChild(clearBtn);
 
-        out.appendChild(row);
+        outputEl.appendChild(row);
     };
 }
 

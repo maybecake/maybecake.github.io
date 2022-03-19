@@ -2,17 +2,24 @@ body {
     display: flex;
     flex-direction: column;
     gap: clamp(24pt, 2vw, 2vw);
+
     font-weight: bold;
     font-family: sans-serif;
-    background-color: #efe;
+    background-color: #5AB;
+    margin: 24pt 0;
 }
 
 body > * {
     padding: 0 clamp(24pt, 2vw, 2vw);
 }
 
-#main {
+#main, #custom-sentences {
     background-color: #fff;
+    padding: clamp(24pt, 2vw, 2vw);
+}
+
+#custom-sentences {
+    background-color: #def;
 }
 
 button.card {
@@ -77,18 +84,18 @@ button, select, .controls div {
     min-width: clamp(40pt, 4vw, 4vw);
 }
 
-#out {
+#custom-sentences-out, #custom-sentences {
     display: flex;
     flex-direction: column;
     gap: clamp(4pt, 1vw, 1vw);
     font-size: clamp(20pt, 2vw, 2vw);
 }
 
-#out button {
+#custom-sentences-out button {
     line-height: clamp(20pt, 2vw, 2vw);
 }
 
-#out .custom-sentence {
+#custom-sentences-out .custom-sentence {
     display: flex;
     align-items: center;
     gap: 1vw;
@@ -101,5 +108,5 @@ button, select, .controls div {
 }
 
 *[hidden] {
-    display: none;
+    display: none !important;
 }
