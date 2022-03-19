@@ -8,31 +8,46 @@ const SpeechGrammarList = webkitSpeechGrammarList;
 //['The', 'big', 'fat', 'cat', 'is', 'red'];
 // 'A fat bat can run fast'.split(' ');
 const BOOK = [
-    'the big rat ran to winry . a small bat flew past the pink monkey .',
-    'why is a bat in the bag ?',
-    'the man is in the fast van',
-    'is this a map to the lab ?',
-    'I have the ham in the pan .',
-]
+    // page
+    [ // sentence
+        'winry and hana went to the zoo .',
+        'winry likes to look at animals ,',
+        'the zoo has many animals .'
+    ],
+    ['hana saw a big pink monkey .',
+        'she also saw a small rabbit .'],
+    ['the rabbit hopped up and down .',
+        'winry saw a yellow bird .'],
+];
 
-const FIRST_WORDS = [
-    'the of and a to in is you that it he was for on are as with his they i',
-    'at be this have from or one had by words but not what all were we when your can said',
-    'there use an each which she do how their if will up other about out many then them these so',
-    'some her would make like him into time has look two more write go see number no way could people',
-    'my than first water been called who am its now find long down day did get come made may part',
-]
+const WINRY = ['winry hana'];
+
+const BASIC_WORDS =
+    'the of and a to in is that it was for on are as with they i she her at ' +
+    'be this have from or one had by words but not what all were we when ' +
+    'your can said there use an each which she do how their if will up other ' +
+    'about out many then them these so some her would make like him into ' +
+    'time has look two more write go see number no way could people my than ' +
+    'first water been called who am its now find long down day did get come ' +
+    'made may part'.split(' ');
 
 const SHORTS = {
-    'a': 'cat mat sat hat rat bat can man bad ran lad sad had fad tad',
+    'a': 'ant bat cat cad mat sat hat rat bat can man bad ran lad sad had fad tad',
     'e': 'bed led fed pen den men ten let net wet pet get set bet yet',
     'i': 'fit wit hit lit sit tin kin win pin pit big jig pig rig',
     'o': 'cot pot got hot lot rod pod cod log dog fog hog rob',
     'u': 'fun run sun pun rut gun hut nut shut cut mud tug rub tab grub',
-}
+};
+
+const ANIMALS = [
+    'pig rat rabbit monkey dog bear lion mouse fish shark',
+];
+
+const NUMBERS = [
+    'one two three four five six seven eight nine ten',
+];
 
 const PUNCTUATION = ',.?!';
-
 const CONFIDENCE_THRESHOLD = 0.6;
 
 // Currently active card index.
@@ -74,6 +89,7 @@ const activateWord = (card) => {
 }
 
 const readText = (text) => {
+    console.log('speak:', text);
     const msg = new SpeechSynthesisUtterance();
     msg.text = text;
     speechSynthesis.speak(msg);
@@ -93,102 +109,168 @@ const clickWord = (card) => {
         activeCustom.innerText += ' ' + card.innerText;
 };
 
-const createSentence = (container, sentenceId, sentence, cards) => {
-    const play = document.getElementById('play');
-    play.onclick = () => { readText(sentence.join(' ')); };
+const createBook = (containerEl, book) => {
+    const bookEl = document.createElement('div');
+    bookEl.className = 'book';
+    for (const page of book) {
+        createPage(bookEl, page);
+    }
+    bookEl.firstChild.removeAttribute('hidden');
+    containerEl.appendChild(bookEl);
 
+    let i = 1;
+    for (const pageEl of bookEl.children) {
+        const controlsEl = document.createElement('div');
+        controlsEl.className = 'controls';
+
+        const prevEl = document.createElement('button');
+        prevEl.innerText = '< Page';
+        if (pageEl.previousSibling) {
+            prevEl.onclick = () => {
+                pageEl.setAttribute('hidden', '');
+                pageEl.previousSibling.removeAttribute('hidden');
+            }
+
+        } else {
+            prevEl.setAttribute('disabled', '');
+        }
+        controlsEl.appendChild(prevEl);
+
+        const pageNumberEl = document.createElement('div');
+        pageNumberEl.innerText = i++ + ' / ' + book.length;
+        controlsEl.appendChild(pageNumberEl);
+
+        if (pageEl.nextSibling) {
+            const nextEl = document.createElement('button');
+            nextEl.innerText = 'Page >';
+            nextEl.onclick = () => {
+                pageEl.setAttribute('hidden', '');
+                pageEl.nextSibling.removeAttribute('hidden');
+            }
+            controlsEl.appendChild(nextEl);
+        }
+        pageEl.insertBefore(controlsEl, pageEl.firstChild);
+    }
+};
+
+const createPage = (containerEl, page) => {
+    const pageEl = document.createElement('div');
+    pageEl.className = 'page';
+    for (const sentence of page) {
+        createSentence(pageEl, sentence)
+    }
+    pageEl.setAttribute('hidden', '');
+    containerEl.appendChild(pageEl);
+}
+
+const createSentence = (containerEl, sentence) => {
+    containerEl.playFn = () => { readText(sentence.join(' ')); };
+    console.log('sentence', sentence);
+
+    const sentenceEl = document.createElement('div');
+    sentenceEl.className = "sentence";
     let i = 0;
-    for (const word of sentence) {
-        const card = document.createElement('button');
-        card.innerText = word;
-        card.word = word.toLowerCase();
+    for (const word of sentence.split(' ')) {
+        const cardBtn = document.createElement('button');
+        cardBtn.innerText = word;
+        cardBtn.word = word.toLowerCase();
 
         if (!PUNCTUATION.includes(word)) {
-            card.onclick = () => {
-                clickWord(card);
+            cardBtn.onclick = () => {
+                clickWord(cardBtn);
             };
-            card.index = i++;
-            cards.push(card);
-            card.classList.add('card');
+            cardBtn.index = i++;
+            cardBtn.classList.add('card');
         } else {
-            card.classList.add('punc');
+            cardBtn.classList.add('punctuation');
         }
-        container.appendChild(card);
+        sentenceEl.appendChild(cardBtn);
+
     }
     activeIndex = -1;
+    containerEl.appendChild(sentenceEl);
 };
 
-const createBook = (words) => {
-    // Set up grammar with words from sentence.
-    const uniqueWords = [...new Set(words)].filter((w) =>
-        !PUNCTUATION.includes(w));
-    const grammar = '#JSGF V1.0; grammar words; public <word> = ' +
-        uniqueWords.join(` | `) + ' ;';
-    console.log('grammar:', grammar);
+// const getSpeechRecognition = (words) => {
+//     // Set up grammar with words from sentence.
+//     const uniqueWords = [...new Set(words)].filter((w) =>
+//         !PUNCTUATION.includes(w));
+//     const grammar = '#JSGF V1.0; grammar words; public <word> = ' +
+//         uniqueWords.join(` | `) + ' ;';
+//     console.log('grammar:', grammar);
 
-    const grammarList = new SpeechGrammarList();
-    grammarList.addFromString(grammar, 1);
+//     const grammarList = new SpeechGrammarList();
+//     grammarList.addFromString(grammar, 1);
 
-    rec = new SpeechRecognition();
-    rec.grammars = grammarList;
-    rec.continuous = false;
-    rec.lang = 'en-US';
-    rec.interimResults = false;
-    rec.maxAlternatives = 1;
+//     rec = new SpeechRecognition();
+//     rec.grammars = grammarList;
+//     rec.continuous = false;
+//     rec.lang = 'en-US';
+//     rec.interimResults = false;
+//     rec.maxAlternatives = 1;
 
-    rec.onresult = (e) => {
-        console.log('speech results.', e);
+//     rec.onresult = (e) => {
+//         console.log('speech results.', e);
 
-        const results = [];
-        for (let i = 0; i < e.results.length; i++) {
-            const res = e.results[i];
-            for (let j = 0; j < res.length; j++) {
-                console.log(`${i},${j}`, res[j].confidence, res[j].transcript)
-                if (res[j].confidence > CONFIDENCE_THRESHOLD)
-                    results.push(res[j].transcript);
-            }
-        }
+//         const results = [];
+//         for (let i = 0; i < e.results.length; i++) {
+//             const res = e.results[i];
+//             for (let j = 0; j < res.length; j++) {
+//                 console.log(`${i},${j}`, res[j].confidence, res[j].transcript)
+//                 if (res[j].confidence > CONFIDENCE_THRESHOLD)
+//                     results.push(res[j].transcript);
+//             }
+//         }
 
-        console.log('results:', results);
-        if (results.length == 0) return;
+//         console.log('results:', results);
+//         if (results.length == 0) return;
 
-        const activeCard = getActiveCard();
-        console.log('activeCard?', activeCard, activeIndex);
-        if (!activeCard) return;
+//         const activeCard = getActiveCard();
+//         console.log('activeCard?', activeCard, activeIndex);
+//         if (!activeCard) return;
 
-        const text = activeCard.word;
+//         const text = activeCard.word;
 
-        for (r of results) {
-            console.log(text, 'in', r, '?');
-            if (r.includes(text)) {
-                activeCard.className = '';
-                activeCard.classList.add('card', 'correct');
-                // rec.stop();
-                // console.log('stopped!');
-                activateNext();
-            }
-        }
-    }
+//         for (r of results) {
+//             console.log(text, 'in', r, '?');
+//             if (r.includes(text)) {
+//                 activeCard.className = '';
+//                 activeCard.classList.add('card', 'correct');
+//                 // rec.stop();
+//                 // console.log('stopped!');
+//                 activateNext();
+//             }
+//         }
+//     }
 
-    rec.onspeechend = (e) => {
-        console.log('speech ended.', e);
-        const activeCard = getActiveCard();
-        if (activeCard)
-            activeCard.classList.replace('active', 'wrong');
-    }
+//     rec.onspeechend = (e) => {
+//         console.log('speech ended.', e);
+//         const activeCard = getActiveCard();
+//         if (activeCard)
+//             activeCard.classList.replace('active', 'wrong');
+//     }
 
-    rec.onnomatch = (e) => {
-        console.log('no match!');
-    }
-
-    createSentence(document.getElementById('main'), '0', words, activeCards);
-};
+//     rec.onnomatch = (e) => {
+//         console.log('no match!');
+//     }
+// };
 
 window.onload = () => {
     const allShort = Object.values(SHORTS)
         .reduce((a, b) => a + ' ' + b);
     const shortWords = allShort.split(' ').filter((e) => Math.random() > 0.3);
-    createBook(FIRST_WORDS[0].split(' ').concat(shortWords));
+
+    // Create the book.
+    const book = createBook(
+        document.getElementById('main'),
+        BOOK);
+
+    // createBook();
+    // createSentence(document.getElementById('main'), WINRY[0].split(' '), activeCards);
+    // createSentence(document.getElementById('main'), FIRST_WORDS[0].split(' '), activeCards);
+    // createSentence(document.getElementById('main'), ANIMALS[0].split(' '), activeCards);
+    // createSentence(document.getElementById('main'), BOOK[1].split(' '), activeCards);
+    // createSentence(document.getElementById('main'), BOOK[2].split(' '), activeCards);
 
     document.getElementById('listen').onclick = () => {
         activateNext();
@@ -200,7 +282,7 @@ window.onload = () => {
 
         const cs = document.createElement('div');
         const play = document.createElement('button');
-        play.innerText = 'play';
+        play.innerHTML = '&#9654;';
         play.onclick = () => {
             readText(cs.innerText)
         };
@@ -212,6 +294,7 @@ window.onload = () => {
         };
 
         const row = document.createElement('div');
+        row.className = 'custom-sentence';
         row.appendChild(play);
         row.appendChild(cs);
         row.appendChild(clear);

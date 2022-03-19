@@ -1,4 +1,8 @@
 body {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(24pt, 2vw, 2vw);
+    padding: clamp(24pt, 2vw, 2vw);
     font-weight: bold;
     font-family: sans-serif;
 }
@@ -8,25 +12,36 @@ button.card {
     background-color: #fff;
 }
 
-body > div {
-    padding: 4px;
-    clear: both;
+.page {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(24pt, 2vw, 2vw);
 }
 
-#main {
-    width: 100%;
+.page .controls {
+    display: flex;
+    gap: clamp(4pt, 1vw, 1vw);
+    align-items: center;
 }
 
-.card, .punc {
-    float:left;
+.sentence {
+    display: flex;
+    flex-flow: row wrap;
+    gap: clamp(4pt, 1vw, 1vw);
+}
 
+.card, .punctuation {
     color: #888;
-    font-size: 4vw;
-    border-radius: 4px;
-    padding: 8px;
-    margin: 2px;
+    font-size: clamp(24pt, 4vw, 4vw);
+    border-radius: 8pt;
+    padding: 12pt;
     text-align: center;
     cursor: pointer;
+}
+
+.punctuation {
+    border: 0;
+    background-color: #fff;
 }
 
 .card {
@@ -49,22 +64,28 @@ body > div {
     color: #229;
 }
 
+button, .controls div {
+    font-size: clamp(20pt, 2vw, 2vw);
+    min-width: clamp(40pt, 4vw, 4vw);
+}
 
 #out {
-    font-size: 3vw;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(4pt, 1vw, 1vw);
+    font-size: clamp(20pt, 2vw, 2vw);
 }
 
 #out button {
-    width: 200px;
+    line-height: clamp(20pt, 2vw, 2vw);
 }
 
-#out button, #out div{
-    float: left;
-    vertical-align:middle;
-    line-height: 4vw;
-        padding: 4px;
+#out .custom-sentence {
+    display: flex;
+    align-items: center;
+    gap: 1vw;
 }
 
-#out > div {
-    clear: both;
+*[hidden] {
+    display: none;
 }
