@@ -7,7 +7,7 @@ class Book {
 
 }
 
-export const ZOO_BOOK = new Book(
+const ZOO_BOOK = new Book(
     'Winry and Hana Go to the Zoo',
     [
         // page
@@ -58,3 +58,5 @@ const ANIMALS = [
 const NUMBERS = [
     'one two three four five six seven eight nine ten',
 ];
+
+export const BOOKS = [ZOO_BOOK];

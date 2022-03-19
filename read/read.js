@@ -1,4 +1,4 @@
-import { ZOO_BOOK } from "./books.js";
+import { BOOKS } from "./books.js";
 
 const PUNCTUATION = ',.?!';
 const CONFIDENCE_THRESHOLD = 0.6;
@@ -204,19 +204,37 @@ const getActiveCustoms = () => {
     return containerEl.querySelectorAll('*[active]');
 };
 
+const loadBooks = (books) => {
+    const bookSel = document.getElementById('book');
+    for (const book of books) {
+        const option = document.createElement('option');
+        option.value = book.title;
+        option.innerHTML = book.title;
+        bookSel.appendChild(option)
+    }
+}
+
 window.onload = () => {
     loadVoiceOptions();
     window.speechSynthesis.onvoiceschanged = () => {
         loadVoiceOptions();
     };
 
+    loadBooks(BOOKS);
+
     // Create the book.
     const book = createBook(
         document.getElementById('main'),
-        ZOO_BOOK.pages);
+        BOOKS[0].pages);
 
     // Generate custom sentences.
     document.getElementById('addCustom').onclick = () => {
         createCustom(document.getElementById('custom-sentences-out'));
+    };
+
+    document.getElementById('settings-toggle').onclick = () => {
+        const settingsEl = document.getElementById('settings-content');
+        console.log('settings', settingsEl);
+        settingsEl.toggleAttribute('hidden');
     };
 };

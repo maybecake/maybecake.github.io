@@ -99,7 +99,6 @@ button, select, .controls div {
         repeat(2, 60pt);
     align-items: center;
     column-gap: clamp(4pt, 1vw, 1vw);
-
 }
 
 .custom-sentence[active] {
@@ -110,6 +109,14 @@ button, select, .controls div {
     display: flex;
     flex-direction: column;
     gap: clamp(4pt, 1vw, 1vw);
+}
+
+#settings-content {
+    display: flex;
+    /* grid-template-columns: repeat(3, auto); */
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: clamp(8pt, 1vw, 1vw);
 }
 
 *[hidden] {

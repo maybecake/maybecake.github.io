@@ -14,33 +14,33 @@
         <button id="addCustom">add custom sentence</button>
     </div>
 
-    <div id="controls" class="controls" hidden>
-        <div class="voice-controls">
-            <div class="option">
-                <label for="voice">Voice:</label>
-                <select id="voice"></select>
-            </div>
-            <div class="option">
-                <label for="voice-rate">Rate:</label>
-                <input type="range" id="voice-rate" min="0.1" max="10" step="0.1" value="1">
-            </div>
-            <div class="option">
-                <label for="voice-pitch">Pitch:</label>
-                <input type="range" id="voice-pitch" min="0" max="2" step="0.1" value="1">
-            </div>
-        </div>
+    <div id="controls" class="controls">
+        <button id="settings-toggle">Settings</button>
 
-        <div>
-            Mode:
-            <select id="action">
-                <option value="read">read word</option>
-                <option value="none">none</option>
-            </select>
-        </div>
+        <div id="settings-content" hidden>
+            <div>
+                Book:
+                <select id="book"></select>
+            </div>
 
-        <div>
-            Book:
-            <select id="book"></select>
+            <div class="voice-controls">
+                <div class="option">
+                    <label for="voice">Voice:</label>
+                    <select id="voice"></select>
+                </div>
+                <div class="option">
+                    <label for="voice-pitch">Pitch:</label>
+                    <input type="range" id="voice-pitch" min="0" max="2" step="0.1" value="1">
+                </div>
+            </div>
+
+            <div>
+                Mode:
+                <select id="action">
+                    <option value="read">read word</option>
+                    <option value="none">none</option>
+                </select>
+            </div>
         </div>
     </div>
 </body>
