@@ -2,9 +2,17 @@ body {
     display: flex;
     flex-direction: column;
     gap: clamp(24pt, 2vw, 2vw);
-    padding: clamp(24pt, 2vw, 2vw);
     font-weight: bold;
     font-family: sans-serif;
+    background-color: #efe;
+}
+
+body > * {
+    padding: 0 clamp(24pt, 2vw, 2vw);
+}
+
+#main {
+    background-color: #fff;
 }
 
 button.card {

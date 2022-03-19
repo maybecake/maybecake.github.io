@@ -18,6 +18,8 @@ const BOOK = [
         'winry is happy to see the bird .'],
     ['hana is looking for a snake .',
         'hana found a small snake with red dots .'],
+    ['winry and hana had fun at the zoo.',
+        'they saw a lot of animals.'],
 ];
 
 const WINRY = ['winry hana'];
