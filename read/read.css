@@ -64,7 +64,7 @@ button.card {
     color: #229;
 }
 
-button, .controls div {
+button, select, .controls div {
     font-size: clamp(20pt, 2vw, 2vw);
     min-width: clamp(40pt, 4vw, 4vw);
 }
@@ -84,6 +84,12 @@ button, .controls div {
     display: flex;
     align-items: center;
     gap: 1vw;
+}
+
+#controls {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(4pt, 1vw, 1vw);
 }
 
 *[hidden] {

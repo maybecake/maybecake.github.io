@@ -4,9 +4,6 @@ const SpeechRecognition = webkitSpeechRecognition;
 const SpeechGrammarList = webkitSpeechGrammarList;
 // const SpeechRecognitionEvent = webkitSpeechRecognitionEvent;
 
-
-//['The', 'big', 'fat', 'cat', 'is', 'red'];
-// 'A fat bat can run fast'.split(' ');
 const BOOK = [
     // page
     [ // sentence
@@ -17,7 +14,10 @@ const BOOK = [
     ['hana saw a big pink monkey .',
         'she also saw a small rabbit .'],
     ['the rabbit hopped up and down .',
-        'winry saw a yellow bird .'],
+        'winry saw a yellow bird .',
+        'winry is happy to see the bird .'],
+    ['hana is looking for a snake .',
+        'hana found a small snake with red dots .'],
 ];
 
 const WINRY = ['winry hana'];
@@ -50,12 +50,14 @@ const NUMBERS = [
 const PUNCTUATION = ',.?!';
 const CONFIDENCE_THRESHOLD = 0.6;
 
+const AUDIO_SYMBOL = '&#128266;';
+
 // Currently active card index.
 let activeIndex;
 let activeCards = [];
 
 // Current custom sentence.
-let activeCustom;
+let activeCustomSentence;
 
 // Main SpeechRecognition object
 let rec;
@@ -88,25 +90,58 @@ const activateWord = (card) => {
     rec.start();
 }
 
+
+const loadVoices = () => {
+    const voices = speechSynthesis.getVoices();
+    const voiceSel = document.getElementById('voice');
+    const selected = voiceSel?.value;
+
+    for (const v of voices) {
+        const option = document.createElement('option');
+        option.value = v.name;
+        option.innerHTML = v.name;
+        voiceSel.appendChild(option);
+    }
+
+    if (!selected) {
+        const voice = voices.filter((v) => v.name.includes('Google') && v.name.includes('English'));
+        console.log(voice);
+        if (voice.length > 0) {
+            voiceSel.value = voice[0].name;
+        }
+    }
+}
+
 const readText = (text) => {
-    console.log('speak:', text);
     const msg = new SpeechSynthesisUtterance();
     msg.text = text;
+
+    const voiceSel = document.getElementById('voice');
+    if (voiceSel?.value) {
+        msg.voice = speechSynthesis.getVoices()
+            .filter((voice) => voice.name == voiceSel.value)[0];
+    }
+
+    const rateInput = document.getElementById('voice-rate');
+    const pitchInput = document.getElementById('voice-pitch');
+    //    msg.rate = parseFloat(rateInput.value);
+    msg.pitch = parseFloat(pitchInput.value);
+
+    console.log('read', msg);
     speechSynthesis.speak(msg);
 };
 
 const clickWord = (card) => {
     const action = document.getElementById('action');
-    console.log(action.value, card);
-    switch (action.value) {
+    switch (action?.value) {
         case 'read': readText(card.innerText);
             break;
         case 'listen': activateWord(card);
             break;
     }
 
-    if (activeCustom)
-        activeCustom.innerText += ' ' + card.innerText;
+    if (activeCustomSentence)
+        activeCustomSentence.innerText += ' ' + card.innerText;
 };
 
 const createBook = (containerEl, book) => {
@@ -164,11 +199,15 @@ const createPage = (containerEl, page) => {
 }
 
 const createSentence = (containerEl, sentence) => {
-    containerEl.playFn = () => { readText(sentence.join(' ')); };
-    console.log('sentence', sentence);
-
     const sentenceEl = document.createElement('div');
     sentenceEl.className = "sentence";
+
+    // Add play button.
+    const playBtn = document.createElement('button');
+    playBtn.innerHTML = AUDIO_SYMBOL;
+    playBtn.onclick = () => { readText(sentence); };
+    sentenceEl.appendChild(playBtn);
+
     let i = 0;
     for (const word of sentence.split(' ')) {
         const cardBtn = document.createElement('button');
@@ -256,51 +295,50 @@ const createSentence = (containerEl, sentence) => {
 // };
 
 window.onload = () => {
-    const allShort = Object.values(SHORTS)
-        .reduce((a, b) => a + ' ' + b);
-    const shortWords = allShort.split(' ').filter((e) => Math.random() > 0.3);
+    // const allShort = Object.values(SHORTS)
+    //     .reduce((a, b) => a + ' ' + b);
+    //     const shortWords = allShort.split(' ').filter((e) => Math.random() >
+    //     0.3);
+    loadVoices();
+    window.speechSynthesis.onvoiceschanged = () => {
+        loadVoices();
+    };
 
     // Create the book.
     const book = createBook(
         document.getElementById('main'),
         BOOK);
 
-    // createBook();
-    // createSentence(document.getElementById('main'), WINRY[0].split(' '), activeCards);
-    // createSentence(document.getElementById('main'), FIRST_WORDS[0].split(' '), activeCards);
-    // createSentence(document.getElementById('main'), ANIMALS[0].split(' '), activeCards);
-    // createSentence(document.getElementById('main'), BOOK[1].split(' '), activeCards);
-    // createSentence(document.getElementById('main'), BOOK[2].split(' '), activeCards);
-
-    document.getElementById('listen').onclick = () => {
-        activateNext();
-        rec.start();
-    };
-
+    // Generate a custom sentence.
     document.getElementById('addCustom').onclick = () => {
         const out = document.getElementById('out');
 
-        const cs = document.createElement('div');
-        const play = document.createElement('button');
-        play.innerHTML = '&#9654;';
-        play.onclick = () => {
-            readText(cs.innerText)
-        };
-
-        const clear = document.createElement('button');
-        clear.innerText = 'X';
-        clear.onclick = () => {
-            out.removeChild(row);
-        };
-
         const row = document.createElement('div');
         row.className = 'custom-sentence';
-        row.appendChild(play);
-        row.appendChild(cs);
-        row.appendChild(clear);
+
+        const playBtn = document.createElement('button');
+        playBtn.innerHTML = AUDIO_SYMBOL;
+        playBtn.onclick = () => {
+            readText(customSentence.innerText)
+        };
+        row.appendChild(playBtn);
+
+        const customSentence = document.createElement('div');
+        row.appendChild(customSentence);
+        activeCustomSentence = customSentence;
+
+        const delBtn = document.createElement('button');
+        delBtn.innerHTML = '&#9664;';
+        row.appendChild(delBtn);
+
+        const clearBtn = document.createElement('button');
+        clearBtn.innerHTML = '&#9851;';
+        clearBtn.onclick = () => {
+            out.removeChild(row);
+        };
+        row.appendChild(clearBtn);
 
         out.appendChild(row);
-        activeCustom = cs;
     };
 }
 
