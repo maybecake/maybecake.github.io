@@ -54,46 +54,7 @@ const CONFIDENCE_THRESHOLD = 0.6;
 
 const AUDIO_SYMBOL = '&#128266;';
 
-// Currently active card index.
-let activeIndex;
-let activeCards = [];
-
-// Current custom sentence.
-let activeCustomSentence;
-
-// Main SpeechRecognition object
-let rec;
-
-const getActiveCard = () => {
-    if (activeIndex >= 0 && activeIndex < activeCards.length)
-        return activeCards[activeIndex];
-    return;
-}
-
-const activateNext = () => {
-    let activeCard = getActiveCard();
-    if (activeCard)
-        activeCard.classList.replace('active', 'wrong');
-
-    activeIndex++;
-    activeCard = getActiveCard();
-    if (activeCard)
-        activeCard.classList.add('active');
-};
-
-const activateWord = (card) => {
-    let activeCard = getActiveCard();
-    if (activeCard)
-        activeCard.className = 'card';
-
-    card.className = '';
-    card.classList.add('active', 'card');
-    activeIndex = card.index;
-    rec.start();
-}
-
-
-const loadVoices = () => {
+const loadVoiceOptions = () => {
     const voices = speechSynthesis.getVoices();
     const voiceSel = document.getElementById('voice');
     const selected = voiceSel?.value;
@@ -138,12 +99,9 @@ const clickWord = (card) => {
     switch (action?.value) {
         case 'read': readText(card.innerText);
             break;
-        case 'listen': activateWord(card);
-            break;
     }
 
-    if (activeCustomSentence)
-        activeCustomSentence.innerText += ' ' + card.innerText;
+    addCustomText(card.innerText);
 };
 
 const createBook = (containerEl, book) => {
@@ -215,6 +173,7 @@ const createSentence = (containerEl, sentence) => {
         const cardBtn = document.createElement('button');
         cardBtn.innerText = word;
         cardBtn.word = word.toLowerCase();
+        cardBtn.setAttribute('draggable', 'true');
 
         if (!PUNCTUATION.includes(word)) {
             cardBtn.onclick = () => {
@@ -232,78 +191,79 @@ const createSentence = (containerEl, sentence) => {
     containerEl.appendChild(sentenceEl);
 };
 
-// const getSpeechRecognition = (words) => {
-//     // Set up grammar with words from sentence.
-//     const uniqueWords = [...new Set(words)].filter((w) =>
-//         !PUNCTUATION.includes(w));
-//     const grammar = '#JSGF V1.0; grammar words; public <word> = ' +
-//         uniqueWords.join(` | `) + ' ;';
-//     console.log('grammar:', grammar);
+const createCustom = (containerEl) => {
+    const customSentenceEl = document.createElement('div');
+    customSentenceEl.className = 'custom-sentence';
 
-//     const grammarList = new SpeechGrammarList();
-//     grammarList.addFromString(grammar, 1);
+    const playBtn = document.createElement('button');
+    playBtn.innerHTML = AUDIO_SYMBOL;
+    playBtn.onclick = () => {
+        readText(customSentence.innerText)
+    };
+    customSentenceEl.appendChild(playBtn);
 
-//     rec = new SpeechRecognition();
-//     rec.grammars = grammarList;
-//     rec.continuous = false;
-//     rec.lang = 'en-US';
-//     rec.interimResults = false;
-//     rec.maxAlternatives = 1;
+    const customSentence = document.createElement('div');
+    customSentenceEl.onclick = (e) => {
+        setActiveCustom(customSentenceEl, /*add=*/ e.ctrlKey);
+    }
+    customSentenceEl.appendChild(customSentence);
+    customSentenceEl.addText = (text) => {
+        customSentence.innerText += ' ' + text;
+    };
 
-//     rec.onresult = (e) => {
-//         console.log('speech results.', e);
+    const delBtn = document.createElement('button');
+    delBtn.innerHTML = '&#9664;';
+    delBtn.onclick = () => {
+        const lastSpace = customSentence.innerText.lastIndexOf(' ');
+        if (lastSpace)
+            customSentence.innerText = customSentence.innerText.substring(0, lastSpace);
+    };
+    customSentenceEl.appendChild(delBtn);
 
-//         const results = [];
-//         for (let i = 0; i < e.results.length; i++) {
-//             const res = e.results[i];
-//             for (let j = 0; j < res.length; j++) {
-//                 console.log(`${i},${j}`, res[j].confidence, res[j].transcript)
-//                 if (res[j].confidence > CONFIDENCE_THRESHOLD)
-//                     results.push(res[j].transcript);
-//             }
-//         }
 
-//         console.log('results:', results);
-//         if (results.length == 0) return;
+    const clearBtn = document.createElement('button');
+    clearBtn.innerHTML = '&#9851;';
+    clearBtn.onclick = () => {
+        containerEl.removeChild(customSentenceEl);
+    };
+    customSentenceEl.appendChild(clearBtn);
 
-//         const activeCard = getActiveCard();
-//         console.log('activeCard?', activeCard, activeIndex);
-//         if (!activeCard) return;
+    setActiveCustom(customSentenceEl);
+    containerEl.appendChild(customSentenceEl);
+};
 
-//         const text = activeCard.word;
+const addCustomText = (text) => {
+    const els = getActiveCustoms();
+    for (const el of els) {
+        el.addText(text);
+    }
+};
 
-//         for (r of results) {
-//             console.log(text, 'in', r, '?');
-//             if (r.includes(text)) {
-//                 activeCard.className = '';
-//                 activeCard.classList.add('card', 'correct');
-//                 // rec.stop();
-//                 // console.log('stopped!');
-//                 activateNext();
-//             }
-//         }
-//     }
+const setActiveCustom = (customSentenceEl, add = false) => {
+    if (!add) {
+        const containerEl = document.getElementById('custom-sentences-out');
+        for (const cs of containerEl.children) {
+            cs.removeAttribute('active');
+        }
+    }
+    customSentenceEl.setAttribute('active', '');
+};
 
-//     rec.onspeechend = (e) => {
-//         console.log('speech ended.', e);
-//         const activeCard = getActiveCard();
-//         if (activeCard)
-//             activeCard.classList.replace('active', 'wrong');
-//     }
-
-//     rec.onnomatch = (e) => {
-//         console.log('no match!');
-//     }
-// };
+const getActiveCustoms = () => {
+    const containerEl = document.getElementById('custom-sentences-out');
+    console.log(containerEl.querySelectorAll('*[active]'));
+    return containerEl.querySelectorAll('*[active]');
+}
 
 window.onload = () => {
     // const allShort = Object.values(SHORTS)
     //     .reduce((a, b) => a + ' ' + b);
     //     const shortWords = allShort.split(' ').filter((e) => Math.random() >
     //     0.3);
-    loadVoices();
+
+    loadVoiceOptions();
     window.speechSynthesis.onvoiceschanged = () => {
-        loadVoices();
+        loadVoiceOptions();
     };
 
     // Create the book.
@@ -311,36 +271,8 @@ window.onload = () => {
         document.getElementById('main'),
         BOOK);
 
-    // Generate a custom sentence.
+    // Generate custom sentences.
     document.getElementById('addCustom').onclick = () => {
-        const outputEl = document.getElementById('custom-sentences-out');
-
-        const row = document.createElement('div');
-        row.className = 'custom-sentence';
-
-        const playBtn = document.createElement('button');
-        playBtn.innerHTML = AUDIO_SYMBOL;
-        playBtn.onclick = () => {
-            readText(customSentence.innerText)
-        };
-        row.appendChild(playBtn);
-
-        const customSentence = document.createElement('div');
-        row.appendChild(customSentence);
-        activeCustomSentence = customSentence;
-
-        const delBtn = document.createElement('button');
-        delBtn.innerHTML = '&#9664;';
-        row.appendChild(delBtn);
-
-        const clearBtn = document.createElement('button');
-        clearBtn.innerHTML = '&#9851;';
-        clearBtn.onclick = () => {
-            outputEl.removeChild(row);
-        };
-        row.appendChild(clearBtn);
-
-        outputEl.appendChild(row);
+        createCustom(document.getElementById('custom-sentences-out'));
     };
 }
-

@@ -84,21 +84,26 @@ button, select, .controls div {
     min-width: clamp(40pt, 4vw, 4vw);
 }
 
-#custom-sentences-out, #custom-sentences {
+#custom-sentences, #custom-sentences-out {
     display: flex;
     flex-direction: column;
     gap: clamp(4pt, 1vw, 1vw);
     font-size: clamp(20pt, 2vw, 2vw);
 }
 
-#custom-sentences-out button {
-    line-height: clamp(20pt, 2vw, 2vw);
+.custom-sentence {
+    display: grid;
+    grid-template-columns:
+        [first] 50pt
+        [custom] auto
+        repeat(2, 60pt);
+    align-items: center;
+    column-gap: clamp(4pt, 1vw, 1vw);
+
 }
 
-#custom-sentences-out .custom-sentence {
-    display: flex;
-    align-items: center;
-    gap: 1vw;
+.custom-sentence[active] {
+    background-color: #fff;
 }
 
 #controls {
