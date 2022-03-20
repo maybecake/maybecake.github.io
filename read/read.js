@@ -18,7 +18,8 @@ const loadVoiceOptions = () => {
     }
 
     if (!selected) {
-        const voice = voices.filter((v) => v.name.includes('Google') && v.name.includes('English'));
+        const voice = voices.filter((v) =>
+            v.name.includes('Google') && v.name.includes('English'));
         if (voice.length > 0) {
             voiceSel.value = voice[0].name;
         }
@@ -54,10 +55,22 @@ const clickWord = (card) => {
     addCustomText(card.innerText);
 };
 
-const createBook = (containerEl, book) => {
+const createBook = (book) => {
+    const containerEl = document.getElementById('main');
+
+    if (containerEl.firstChild?.title == book.title) {
+        console.log('book already loaded.');
+        return;
+    }
+
+    while (containerEl.firstChild) {
+        containerEl.removeChild(containerEl.firstChild);
+    }
+
     const bookEl = document.createElement('div');
+    bookEl.title = book.title;
     bookEl.className = 'book';
-    for (const page of book) {
+    for (const page of book.pages) {
         createPage(bookEl, page);
     }
     bookEl.firstChild.removeAttribute('hidden');
@@ -82,7 +95,7 @@ const createBook = (containerEl, book) => {
         controlsEl.appendChild(prevEl);
 
         const pageNumberEl = document.createElement('div');
-        pageNumberEl.innerText = i++ + ' / ' + book.length;
+        pageNumberEl.innerText = i++ + ' / ' + book.pages.length;
         controlsEl.appendChild(pageNumberEl);
 
         if (pageEl.nextSibling) {
@@ -166,7 +179,8 @@ const createCustom = (containerEl) => {
     delBtn.onclick = () => {
         const lastSpace = customSentence.innerText.lastIndexOf(' ');
         if (lastSpace)
-            customSentence.innerText = customSentence.innerText.substring(0, lastSpace);
+            customSentence.innerText =
+                customSentence.innerText.substring(0, lastSpace);
     };
     customSentenceEl.appendChild(delBtn);
 
@@ -212,6 +226,10 @@ const loadBooks = (books) => {
         option.innerHTML = book.title;
         bookSel.appendChild(option)
     }
+    bookSel.onchange = (e) => {
+        const book = books.filter((book) => book.title == e.target.value)[0];
+        createBook(book);
+    }
 }
 
 window.onload = () => {
@@ -223,9 +241,7 @@ window.onload = () => {
     loadBooks(BOOKS);
 
     // Create the book.
-    const book = createBook(
-        document.getElementById('main'),
-        BOOKS[0].pages);
+    const book = createBook(BOOKS[0]);
 
     // Generate custom sentences.
     document.getElementById('addCustom').onclick = () => {
