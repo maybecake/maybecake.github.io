@@ -8,8 +8,10 @@ const AUDIO_SYMBOL = '🔊';
 const loadVoiceOptions = () => {
     const voices = speechSynthesis.getVoices();
     const voiceSel = document.getElementById('voice');
-    const selected = voiceSel?.value;
 
+    while (voiceSel.firstChild) {
+        voiceSel.removeChild(voiceSel.firstChild);
+    }
     for (const v of voices) {
         const option = document.createElement('option');
         option.value = v.name;
@@ -17,12 +19,11 @@ const loadVoiceOptions = () => {
         voiceSel.appendChild(option);
     }
 
-    if (!selected) {
-        const voice = voices.filter((v) =>
-            v.name.includes('Google') && v.name.includes('English'));
-        if (voice.length > 0) {
-            voiceSel.value = voice[0].name;
-        }
+    // Select a default english voice.
+    const voice = voices.filter((v) =>
+        v.name.includes('Google') && v.name.includes('English'));
+    if (voice.length > 0) {
+        voiceSel.value = voice[0].name;
     }
 };
 
