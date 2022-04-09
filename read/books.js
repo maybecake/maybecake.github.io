@@ -19,9 +19,8 @@ const MUD_BOOK = new Book("Winry Makes Mud", [
     "winry did not see any mud .",
   ],
   ["winry looked out the window .", "she went out the door ."],
-  ["winry went to the front yard .", "she went to the back yard ."][
-    ("winry found some mud !", "she was very happy .")
-  ],
+  ["winry went to the front yard .", "she went to the back yard ."],
+  ["winry found some mud !", "she was very happy ."],
   ["winry played in the mud .", "the mud made winry very dirty ."],
   ["after playing with the mud ,", "winry washed her hands"],
 ]);
