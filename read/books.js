@@ -72,11 +72,57 @@ const WORD_BOOK = new Book("Word book", [
   ["or one had by words but not", "what all were we when"],
 ]);
 
+/* Generated from chat GPT with the following prompt:
+"Write a story for a beginner reader about Adam.
+ Adam is finding his daughter Winry. They are on Adam's head.
+ Winry is hiding on adam's head. Adam is wondering what
+ winry is doing on adam's head."
+ */
+const ADAM_FIND_WINRY = new Book("Adam Looks for Winry", [
+  [
+    "Adam was looking for his daughter Winry.",
+    "He searched all over the house,",
+    "but he couldn't find her.",
+  ],
+  [
+    "He called her name, but he didn't hear a reply.",
+    "He started to feel worried. Where could she be?",
+  ],
+  [
+    "He decided to check the garden.",
+    "Maybe she was playing with the flowers or the butterflies.",
+    "He walked outside and looked around.",
+  ],
+  [
+    "He still couldn't see her. He felt something tickle his ear.",
+    "He reached up to scratch it, but he felt something soft and warm.",
+    "He looked at his hand and saw a tiny Winry sitting on his palm.",
+  ],
+  ['"Winry! What are you doing on my head?"', "Adam asked in surprise."],
+  [
+    '"Hi, Daddy! I\'m playing hide and seek!" Winry said with a giggle.',
+    '"Hide and seek? With whom?" Adam asked.',
+    '"With you, of course!" Winry said.',
+  ],
+  [
+    '"But I didn\'t know we were playing!" Adam said.',
+    "\"That's why it's fun!",
+    "You never know when I'm hiding on your head!\" Winry said.",
+  ],
+  [
+    "Adam smiled and hugged his daughter.",
+    "He was glad he found her.",
+    "He didn't mind having her on his head.",
+    "She was his little lovey-dovey.",
+  ],
+]);
+
 const BASIC_WORDS =
   "the of and a to in is that it was for on are as with they i she her at " +
   "be this have from or one had by words but not what all were we when " +
   "your can said there use an each which she do how their if will up other " +
-  "about out many then them these so some her would make like him into " +
+  v;
+"about out many then them these so some her would make like him into " +
   "time has look two more write go see number no way could people my than " +
   "first water been called who am its now find long down day did get come " +
   "made may part".split(" ");
@@ -100,4 +146,10 @@ const ADJECTIVES = ["big small huge tall short thin fat round"];
 
 const NUMBERS = ["one two three four five six seven eight nine ten"];
 
-export const BOOKS = [MUD_BOOK, ZOO_BOOK, WORD_BOOK, BEACH_BOOK];
+export const BOOKS = [
+  ADAM_FIND_WINRY,
+  MUD_BOOK,
+  ZOO_BOOK,
+  WORD_BOOK,
+  BEACH_BOOK,
+];
