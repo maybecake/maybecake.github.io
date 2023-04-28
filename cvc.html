@@ -1,0 +1,103 @@
+<html>
+    <style>
+        body {
+            font-family: cursive;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        div {
+            font-size: 300pt;
+        }
+
+        .vowel {
+            color:yellow;
+            -webkit-text-stroke: 4pt black;
+        }
+    </style>
+    <body>
+    </body>
+    <script>
+        const words = "for,you,not,new,was,can,has,but,our,may,out,see,his,web,\
+        now,get,how,top,had,day,buy,her,set,map,way,did,car,him,big,law,non,\
+        low,man,job,too,men,box,gay,air,yes,hot,say,dec,san,tax,got,let,red,\
+        key,few,pay,war,nov,fax,yet,sun,run,net,put,log,faq,fun,feb,sep,lot,\
+        due,mar,aug,via,bad,far,jul,jun,oil,bit,bay,bar,dog,eur,mon,com,gas,\
+        six,sat,zip,bid,wed,los,win,bed,tue,sea,cut,tel,kit,boy,son,max,bin,\
+        van,pop,hit,eye,fee,las,min,aid,fat,saw,tom,sub,led,fan,ten,cat,\
+        pet,guy,dev,cup,vol,lee,bob,fit,met,sec,bus,bag,nor,bug,mid,jim,\
+        joe,lab,des,pic,tag,mix,fix,ray,con,var,won,doc,mom,row,eat,aim,\
+        tip,dan,hey,tea,rom,toy,hip,dot,tim,don,cap,pin,raw,\
+        hat,lib,der,cam,wet,ram,fox,pub,hop,gun,sam,ref,kid,pan,sum,oak,\
+        vat,sir,kim,res,sit,wow,que,fig,tab,bio,von,sin,med,leg,jay,gap,\
+        rob,jet,par,mad,ken,pen,joy,ran,jon,lay,lol,bet,def,ron,dad,pat,\
+        ear,tie,ian,mod,ceo,rep,mit,toe,lan,nec,den,aud,lie,pad,rod,sad,\
+        pot,pee,lat,sur,rev,nyc,jam,rio,roy,ion,fed,ban,zus,zoo,tee,\
+        val,hub,sue,seo,rap,tin,oem,rat,dos,cod,gen,gel,aaa,vid,pal,mat,\
+        gym,tan,pie,bow,cab,dam,tub,tap,bee,pit,ton,cow,rid,rip,bat,lip,sap,\
+        dig,rim,pig,lit,fog,fur,tar,rug,ham,jar,wax,nut,bye,lap,gem,gig,fin,\
+        mud,dip,lid,hay,cop,dim,sip,pod,wit,mug".split(',');
+
+        const more = '\
+        cab, dab, gab, jab, lab, nab, tab, blab, crab, grab, scab, stab, slab,\
+        bat, cat, fat, hat, mat, pat, rat, sat, vat, brat, chat, flat, gnat, spat,\
+        bad, dad, had, lad, mad, pad, sad, tad, glad,\
+        ban, can, fan, man, pan, ran, tan, van, clan, plan, scan, than,\
+        bag, gag, hag, lag, nag, rag, sag, tag, wag, brag, drag, flag, snag, stag,\
+        cap, gap, lap, map, nap, rap, sap, tap, yap, zap, chap, clap, flap, slap, snap, trap,\
+        bam, dam, ham, jam, ram, yam, clam, cram, scam, slam, spam, swam, tram, wham,\
+        back, hack, jack, lack, pack, rack, sack, tack, black, crack, shack, snack, stack, quack, track,\
+        bash, cash, dash, gash, hash, lash, mash, rash, sash, clash, crash, flash, slash, smash,\
+        gal, pal, gas, yak, wax, tax, bath, math,\
+        bed, fed, led, red, wed, bled, bred, fled, pled, sled, shed,\
+        beg, keg, leg, peg,\
+        bet, get, jet, let, met, net, pet, set, vet, wet, yet, fret,\
+        den, hen, men, pen, ten, then, when,\
+        beck, deck, neck, peck, check, fleck, speck, wreck,\
+        bell, cell, dell, jell, sell, tell, well, yell, dwell, shell, smell, spell, swell,\
+        yes, web, gem, hem, pep, step,\
+        bit, fit, hit, kit, lit, pit, sit, wit, knit, quit, slit, spit,\
+        bid, did, hid, kid, lid, rid, skid, slid,\
+        big, dig, fig, gig, jig, pig, rig, wig, zig, twig,\
+        dim, him, rim, brim, grim, skim, slim, swim, trim, whim,\
+        dip, hip, lip, nip, rip, sip, tip, zip, chip, clip, drip, flip, grip, ship, skip, slip, snip, trip, whip,\
+        kick, lick, nick, pick, sick, tick, wick, brick, chick, click, flick, quick, slick, stick, thick, trick,\
+        fish, dish, wish, swish,\
+        bin, din, fin, pin, sin, tin, win, chin, grin, shin, skin, spin, thin, twin,\
+        him, this, mix, six, fix, crib,\
+        cot, dot, got, hot, jot, lot, not, pot, rot, tot, blot, knot, plot, shot, slot, spot,\
+        cob, gob, job, lob, mob, rob, sob, blob, glob, knob, slob, snob,\
+        bog, cog, dog, fog, hog, jog, log, blog, clog, frog,\
+        cop, hop, mop, pop, top, chop, crop, drop, flop, glop, plop, shop, slop, stop,\
+        dock, lock, rock, sock, tock, block, clock,  flock, rock, shock smock, stock,\
+        box, fox, pox, rod, sod, mom,\
+        but, cut, gut, hut, jut, nut, rut, shut,\
+        cub, hub, nub, rub, sub, tub, grub, snub, stub,\
+        bug, dug, hug, jug, lug, mug, pug, rug, tug, drug, plug, slug, snug,\
+        bum, gum, hum, mum, sum, chum, drum, glum, plum, scum, slum,\
+        bun, fun, gun, nun, pun, run, sun, spun, stun,\
+        bud, cud, dud, mud, spud, stud, thud,\
+        buck, duck, luck, muck, puck, suck, tuck, yuck, chuck, cluck, pluck, stuck, truck,\
+        gush, hush, lush, mush, rush, blush, brush, crush, flush, slush,\
+        pup, cup, bus'.split(',');;
+
+
+        document.body.onclick = (e) => {
+            while (document.body.firstChild) {
+                document.body.removeChild(document.body.firstChild); }
+            const del = document.createElement('div');
+            word = more[Math.floor(Math.random()*more.length)].trim();
+            for (l of word) {
+                const sel = document.createElement('span');
+                    sel.innerText = l;
+                if ('aeiouy'.includes(l)) {
+                    sel.className = 'vowel';
+                }
+                del.appendChild(sel);
+            }
+            document.body.appendChild(del);
+        }
+
+        document.body.onclick();
+    </script>
+</html>
