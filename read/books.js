@@ -121,8 +121,7 @@ const BASIC_WORDS =
   "the of and a to in is that it was for on are as with they i she her at " +
   "be this have from or one had by words but not what all were we when " +
   "your can said there use an each which she do how their if will up other " +
-  v;
-"about out many then them these so some her would make like him into " +
+  "about out many then them these so some her would make like him into " +
   "time has look two more write go see number no way could people my than " +
   "first water been called who am its now find long down day did get come " +
   "made may part".split(" ");
