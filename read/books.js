@@ -1,11 +1,75 @@
 class Book {
-    pages = [];
-    constructor(title, pages) {
-        this.title = title;
-        this.pages = pages;
-    }
-
+  pages = [];
+  constructor(title, content) {
+    this.title = title;
+    this.pages = content;
+  }
 }
+
+/* Generated and tokenized via Bard. */
+const WINRY_UNICORN = new Book("Winry Finds a Unicorn", [
+  ["Winry likes to go in the woods.", "She found a unicorn."],
+  [
+    "The unicorn was white and pretty.",
+    "Winry wanted to take it home,",
+    "but she knew the unicorn belonged in the woods.",
+  ],
+  ["Winry sat next to the unicorn.", "She talked to it."],
+  [
+    "The unicorn listened.",
+    "Winry said, 'You are pretty.'",
+    "The unicorn said, 'Thank you.'",
+  ],
+  [
+    "Winry said, 'I love you.'",
+    "The unicorn said, 'I love you too.'",
+    "Winry went home.",
+  ],
+  [
+    "She thought about the unicorn.",
+    "She knew she made the right choice by not taking it home.",
+    "The unicorn belonged in the woods.",
+  ],
+  [
+    "The next day, Winry went back to the woods.",
+    "She brought the unicorn a flower and a carrot.",
+    "The unicorn was happy to see Winry.",
+  ],
+  [
+    "They played and talked.",
+    "Winry told the unicorn stories.",
+    "The unicorn listened.",
+  ],
+  ["The unicorn told Winry stories.", "Winry listened."],
+  [
+    "Winry visited the unicorn every day.",
+    "They were best friends.",
+    "Winry loved the unicorn.",
+    "The unicorn loved Winry.",
+  ],
+  [
+    "One day, Winry saw men with guns.",
+    "The men wanted to hunt the unicorn.",
+    "Winry ran to the unicorn and told it to run away.",
+  ],
+  [
+    "The unicorn didn't want to leave Winry.",
+    "But Winry knew it was for the best.",
+    "The unicorn ran away into the woods.",
+    "And Winry watched it go.",
+  ],
+  [
+    "Winry was sad to see the unicorn go.",
+    "But she knew it was safe.",
+    "She also knew she would never forget her best friend, the magical unicorn.",
+  ],
+  [
+    "Winry went home.",
+    "She told her parents about the unicorn.",
+    "Her parents said, 'You did the right thing by not taking the unicorn home. The unicorn belongs in the woods.'",
+    "Winry smiled. She knew she made the right choice.",
+  ],
+]);
 
 const MUD_BOOK = new Book("Winry Makes Mud", [
   [
@@ -146,6 +210,7 @@ const ADJECTIVES = ["big small huge tall short thin fat round"];
 const NUMBERS = ["one two three four five six seven eight nine ten"];
 
 export const BOOKS = [
+  WINRY_UNICORN,
   ADAM_FIND_WINRY,
   MUD_BOOK,
   ZOO_BOOK,
