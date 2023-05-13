@@ -123,35 +123,38 @@ const createPage = (containerEl, page) => {
 };
 
 const createSentence = (containerEl, sentence) => {
-    const sentenceEl = document.createElement('div');
-    sentenceEl.className = "sentence";
+  const sentenceEl = document.createElement("div");
+  sentenceEl.className = "sentence";
 
-    // Add play button.
-    const playBtn = document.createElement('button');
-    playBtn.innerHTML = AUDIO_SYMBOL;
-    playBtn.onclick = () => { readText(sentence); };
-    sentenceEl.appendChild(playBtn);
+  // Add play button.
+  const playBtn = document.createElement("button");
+  playBtn.innerHTML = AUDIO_SYMBOL;
+  playBtn.onclick = () => {
+    readText(sentence);
+  };
+  sentenceEl.appendChild(playBtn);
 
-    let i = 0;
-    for (const word of sentence.split(' ')) {
-        const cardBtn = document.createElement('button');
-        cardBtn.innerText = word;
-        cardBtn.word = word.toLowerCase();
-        cardBtn.setAttribute('draggable', 'true');
+  let i = 0;
+  for (const word of sentence
+    .split(/(\W+)/)
+    .filter((item) => item.trim().length > 0)) {
+    const cardBtn = document.createElement("button");
+    cardBtn.innerText = word;
+    cardBtn.word = word.toLowerCase();
+    cardBtn.setAttribute("draggable", "true");
 
-        if (!PUNCTUATION.includes(word)) {
-            cardBtn.onclick = () => {
-                clickWord(cardBtn);
-            };
-            cardBtn.index = i++;
-            cardBtn.classList.add('card');
-        } else {
-            cardBtn.classList.add('punctuation');
-        }
-        sentenceEl.appendChild(cardBtn);
-
+    if (!PUNCTUATION.includes(word)) {
+      cardBtn.onclick = () => {
+        clickWord(cardBtn);
+      };
+      cardBtn.index = i++;
+      cardBtn.classList.add("card");
+    } else {
+      cardBtn.classList.add("punctuation");
     }
-    containerEl.appendChild(sentenceEl);
+    sentenceEl.appendChild(cardBtn);
+  }
+  containerEl.appendChild(sentenceEl);
 };
 
 const createCustom = (containerEl) => {
