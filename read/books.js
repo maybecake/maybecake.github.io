@@ -17,12 +17,12 @@ const WINRY_UNICORN = new Book("Winry Finds a Unicorn", [
   ["Winry sat next to the unicorn.", "She talked to it."],
   [
     "The unicorn listened.",
-    "Winry said, 'You are pretty.'",
-    "The unicorn said, 'Thank you.'",
+    'Winry said, "You are pretty."',
+    'The unicorn said, "Thank you."',
   ],
   [
-    "Winry said, 'I love you.'",
-    "The unicorn said, 'I love you too.'",
+    'Winry said, "I love you."',
+    'The unicorn said, "I love you too."',
     "Winry went home.",
   ],
   [
@@ -47,26 +47,10 @@ const WINRY_UNICORN = new Book("Winry Finds a Unicorn", [
     "Winry loved the unicorn.",
     "The unicorn loved Winry.",
   ],
+  ["Winry went home.", "She told her parents about the unicorn."],
   [
-    "One day, Winry saw men with guns.",
-    "The men wanted to hunt the unicorn.",
-    "Winry ran to the unicorn and told it to run away.",
-  ],
-  [
-    "The unicorn didn't want to leave Winry.",
-    "But Winry knew it was for the best.",
-    "The unicorn ran away into the woods.",
-    "And Winry watched it go.",
-  ],
-  [
-    "Winry was sad to see the unicorn go.",
-    "But she knew it was safe.",
-    "She also knew she would never forget her best friend, the magical unicorn.",
-  ],
-  [
-    "Winry went home.",
-    "She told her parents about the unicorn.",
-    "Her parents said, 'You did the right thing by not taking the unicorn home. The unicorn belongs in the woods.'",
+    'Her parents said, "You did the right thing by not taking the unicorn home.',
+    'The unicorn belongs in the woods."',
     "Winry smiled. She knew she made the right choice.",
   ],
 ]);
