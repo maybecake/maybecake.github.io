@@ -193,7 +193,64 @@ const ADJECTIVES = ["big small huge tall short thin fat round"];
 
 const NUMBERS = ["one two three four five six seven eight nine ten"];
 
+const ADAM_FIND_HANA = new Book("Adam finds Hana", [
+  [
+    "Once upon a time, there was a little girl named \"Hana\".",
+    "She loved to play with her daddy.",
+    "One day, they went to the park."
+  ],
+  [
+    "They played on the swings and the slide.",
+    "They had a lot of fun.",
+    "After a while, they decided to play hide-and-seek."
+  ],
+  [
+    "Hana hid behind a tree.",
+    "Her daddy went to look for her.",
+    "He looked and looked, but he couldn't find her."
+  ],
+  [
+    "Hana's daddy was starting to get worried.",
+    "He didn't know where she could be.",
+    "He was about to give up when he looked down at his hand."
+  ],
+  [
+    "And there, sitting in his palm, was Hana! \"She had shrunk down!\" Hana's daddy was so happy to find her."
+  ],
+  [
+    "He picked her up and gave her a big hug.",
+    "'Where have you been?' he asked.",
+    "'I was hiding,' Hana said. 'I wanted to see if you could find me.'"
+  ],
+  [
+    "Hana's daddy laughed. 'Well, I found you,' he said. 'And I'm so glad I did.'",
+    "Hana and her daddy played together all day long.",
+    "They had so much fun, and they were both very happy."
+  ],
+  [
+    "At the end of the day, Hana's daddy took her home.",
+    "He gave her a bath and put her to bed.",
+    "Hana was so tired from all the fun she had had that she fell asleep right away."
+  ],
+  [
+    "The next morning, Hana woke up and she was her normal size again.",
+    "She was so happy to be back to normal.",
+    "She went downstairs and had breakfast with her daddy."
+  ],
+  [
+    "After breakfast, Hana and her daddy went back to the park.",
+    "They played on the swings and the slide again.",
+    "They had even more fun than they had the day before."
+  ],
+  [
+    "Hana and her daddy played together all day long.",
+    "They had a wonderful time.",
+    "They were both very happy."
+  ]
+]);
+
 export const BOOKS = [
+  ADAM_FIND_HANA,
   WINRY_UNICORN,
   ADAM_FIND_WINRY,
   MUD_BOOK,
@@ -201,3 +258,18 @@ export const BOOKS = [
   WORD_BOOK,
   BEACH_BOOK,
 ];
+
+// for (let key in localStorage) {
+//   if (key.startsWith('story')) {
+//     localStorage.getItem()
+//   }
+// }
+
+
+// localStorage.setItem("story-1", JSON.stringify('WINRY_UNICORN'))
+
+/*
+Format the story as a 2d javascript array where each top level element is a
+page and subarray elements are lines. Each page should have a max of 3 lines
+and each line is shorter than 80 characters long.
+*/
