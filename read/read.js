@@ -1,6 +1,5 @@
 import { BOOKS } from "./books.js";
 
-const PUNCTUATION = ',.?!';
 const CONFIDENCE_THRESHOLD = 0.6;
 
 const AUDIO_SYMBOL = '🔊';
@@ -143,7 +142,7 @@ const createSentence = (containerEl, sentence) => {
     cardBtn.word = word.toLowerCase();
     cardBtn.setAttribute("draggable", "true");
 
-    if (!PUNCTUATION.includes(word)) {
+    if (/^[a-zA-Z]/.test(word)) {
       cardBtn.onclick = () => {
         clickWord(cardBtn);
       };
