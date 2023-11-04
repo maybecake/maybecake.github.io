@@ -1,0 +1,45 @@
+body {
+    font-size: 20px;
+    font-family: Patrick Hand, Playpen Sans, sans-serif;
+
+  }
+
+  .questions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .question {
+    margin: 10px;
+  }
+
+  .question p {
+    font-size: 20px;
+  }
+
+  .box {
+    width: 50px;
+    text-align: center;
+    border: 1px solid black;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 500px;
+    margin: 0 auto;
+  }
+
+  th,
+  td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid black;
+  }
+
+  input.box {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    border: 1px solid black;
+  }
