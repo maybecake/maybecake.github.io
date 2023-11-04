@@ -3,28 +3,29 @@ function generateSingleMathQuestion(num1, num2, noNegatives = true) {
   const operationSymbol =
     operationSymbols[Math.floor(Math.random() * operationSymbols.length)];
 
+  const box = `<input type="number" class="box">`;
   let a = num1;
   let b = num2;
 
-  // Sum is always bigger or equal to operands.
-  if (noNegatives && operationSymbol == "+") {
-    a = Math.min(num1, num2);
-    b = Math.max(num1, num2);
-  }
-
-  // First operand is always bigger.
-  if (noNegatives && operationSymbol == "-") {
-    a = Math.max(num1, num2);
-    b = Math.min(num1, num2);
-  }
-
   // Randomly place the box in the question.
   if (Math.random() < 0.3) {
-    return `${a} ${operationSymbol} ${b} = <input type="number" class="box">`;
-  } else if (Math.random() < 0.5) {
-    return `${a} ${operationSymbol} <input type="number" class="box"> = ${b}`;
+    // First operand is always bigger.
+    if (noNegatives && operationSymbol == "-") {
+      a = Math.max(num1, num2);
+      b = Math.min(num1, num2);
+    }
+    return `${a} ${operationSymbol} ${b} = ${box}`;
   } else {
-    return `<input type="number" class="box"> ${operationSymbol} ${a} = ${b}`;
+    // Sum is always bigger or equal to operands.
+    if (noNegatives && operationSymbol == "+") {
+      a = Math.min(num1, num2);
+      b = Math.max(num1, num2);
+    }
+    if (Math.random() < 0.5) {
+      return `${a} ${operationSymbol} ${box} = ${b}`;
+    } else {
+      return `${box} ${operationSymbol} ${a} = ${b}`;
+    }
   }
 }
 
