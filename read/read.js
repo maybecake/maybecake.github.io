@@ -56,59 +56,68 @@ const clickWord = (card) => {
 };
 
 const createBook = (book) => {
-    const containerEl = document.getElementById('main');
+  const containerEl = document.getElementById("main");
 
-    if (containerEl.firstChild?.title == book.title) {
-        console.log('book already loaded.');
-        return;
+  if (containerEl.firstChild?.title == book.title) {
+    console.log("book already loaded.");
+    return;
+  }
+
+  while (containerEl.firstChild) {
+    containerEl.removeChild(containerEl.firstChild);
+  }
+
+  const bookEl = document.createElement("div");
+  bookEl.title = book.title;
+  bookEl.className = "book";
+  for (const page of book.pages) {
+    createPage(bookEl, page);
+  }
+  bookEl.firstChild.removeAttribute("hidden");
+  containerEl.appendChild(bookEl);
+
+  // Add controls
+  let i = 1;
+  for (const pageEl of bookEl.children) {
+    const controlsEl = document.createElement("div");
+    controlsEl.className = "controls";
+
+    const prevEl = document.createElement("button");
+    prevEl.innerText = "< Page";
+    if (pageEl.previousSibling) {
+      prevEl.onclick = () => {
+        pageEl.setAttribute("hidden", "");
+        pageEl.previousSibling.removeAttribute("hidden");
+      };
+    } else {
+      prevEl.setAttribute("disabled", "");
     }
+    controlsEl.appendChild(prevEl);
 
-    while (containerEl.firstChild) {
-        containerEl.removeChild(containerEl.firstChild);
+    const pageNumberEl = document.createElement("div");
+    pageNumberEl.innerText = i++ + " / " + book.pages.length;
+    controlsEl.appendChild(pageNumberEl);
+
+    if (pageEl.nextSibling) {
+      const nextEl = document.createElement("button");
+      nextEl.innerText = "Page >";
+      nextEl.onclick = () => {
+        pageEl.setAttribute("hidden", "");
+        pageEl.nextSibling.removeAttribute("hidden");
+      };
+      controlsEl.appendChild(nextEl);
     }
+    pageEl.insertBefore(controlsEl, pageEl.firstChild);
 
-    const bookEl = document.createElement('div');
-    bookEl.title = book.title;
-    bookEl.className = 'book';
-    for (const page of book.pages) {
-        createPage(bookEl, page);
+    // Add picture if available.
+    console.log("pics?", i - 2, book.pictures.length, book.pictures[i - 2]);
+    if (book.pictures.length > i - 2 && book.pictures[i - 2]) {
+      const pictureEl = document.createElement("img");
+      pictureEl.src = "img/" + book.pictures[i - 2];
+      pictureEl.width = 516;
+      pageEl.insertBefore(pictureEl, pageEl.firstChild);
     }
-    bookEl.firstChild.removeAttribute('hidden');
-    containerEl.appendChild(bookEl);
-
-    let i = 1;
-    for (const pageEl of bookEl.children) {
-        const controlsEl = document.createElement('div');
-        controlsEl.className = 'controls';
-
-        const prevEl = document.createElement('button');
-        prevEl.innerText = '< Page';
-        if (pageEl.previousSibling) {
-            prevEl.onclick = () => {
-                pageEl.setAttribute('hidden', '');
-                pageEl.previousSibling.removeAttribute('hidden');
-            }
-
-        } else {
-            prevEl.setAttribute('disabled', '');
-        }
-        controlsEl.appendChild(prevEl);
-
-        const pageNumberEl = document.createElement('div');
-        pageNumberEl.innerText = i++ + ' / ' + book.pages.length;
-        controlsEl.appendChild(pageNumberEl);
-
-        if (pageEl.nextSibling) {
-            const nextEl = document.createElement('button');
-            nextEl.innerText = 'Page >';
-            nextEl.onclick = () => {
-                pageEl.setAttribute('hidden', '');
-                pageEl.nextSibling.removeAttribute('hidden');
-            }
-            controlsEl.appendChild(nextEl);
-        }
-        pageEl.insertBefore(controlsEl, pageEl.firstChild);
-    }
+  }
 };
 
 const createPage = (containerEl, page) => {
