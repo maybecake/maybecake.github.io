@@ -1,4 +1,4 @@
-function generateSingleMathQuestion(num1, num2, noNegatives = false) {
+function generateSingleMathQuestion(num1, num2, noNegatives = true) {
   const operationSymbols = ["+", "-"];
   const operationSymbol =
     operationSymbols[Math.floor(Math.random() * operationSymbols.length)];
