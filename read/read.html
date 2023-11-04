@@ -1,48 +1,67 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-HTZJKESPJH"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-<head>
-    <link rel="stylesheet" href="read.css">
+      gtag("config", "G-HTZJKESPJH");
+    </script>
+    <link rel="stylesheet" href="read.css" />
     <script type="module" src="read.js"></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="main"></div>
 
     <div id="custom-sentences">
-        <div id="custom-sentences-out"></div>
-        <button id="addCustom">add custom sentence</button>
+      <div id="custom-sentences-out"></div>
+      <button id="addCustom">add custom sentence</button>
     </div>
 
     <div id="controls" class="controls">
-        <button id="settings-toggle">Settings</button>
+      <button id="settings-toggle">Settings</button>
 
-        <div id="settings-content" hidden>
-            <div>
-                Book:
-                <select id="book"></select>
-            </div>
-
-            <div class="voice-controls">
-                <div class="option">
-                    <label for="voice">Voice:</label>
-                    <select id="voice"></select>
-                </div>
-                <div class="option">
-                    <label for="voice-pitch">Pitch:</label>
-                    <input type="range" id="voice-pitch" min="0" max="2" step="0.1" value="1">
-                </div>
-            </div>
-
-            <div>
-                Mode:
-                <select id="action">
-                    <option value="read">read word</option>
-                    <option value="none">none</option>
-                </select>
-            </div>
+      <div id="settings-content" hidden>
+        <div>
+          Book:
+          <select id="book"></select>
         </div>
-    </div>
-</body>
 
+        <div class="voice-controls">
+          <div class="option">
+            <label for="voice">Voice:</label>
+            <select id="voice"></select>
+          </div>
+          <div class="option">
+            <label for="voice-pitch">Pitch:</label>
+            <input
+              type="range"
+              id="voice-pitch"
+              min="0"
+              max="2"
+              step="0.1"
+              value="1"
+            />
+          </div>
+        </div>
+
+        <div>
+          Mode:
+          <select id="action">
+            <option value="read">read word</option>
+            <option value="none">none</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

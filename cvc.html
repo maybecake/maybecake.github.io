@@ -1,24 +1,40 @@
 <html>
-    <style>
-        body {
-            font-family: "Patrick Hand", "Playpen Sans", "Comic Sans MS",) sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        div {
-            font-size: 300pt;
-        }
-
-        .vowel {
-            color:yellow;
-            -webkit-text-stroke: 4pt black;
-        }
-    </style>
-    <body>
-    </body>
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-HTZJKESPJH"
+    ></script>
     <script>
-        const words = "for,you,not,new,was,can,has,but,our,may,out,see,his,web,\
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-HTZJKESPJH");
+    </script>
+    <style>
+      body {
+        font-family: "Patrick Hand", "Playpen Sans", "Comic Sans MS",) sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      div {
+        font-size: 300pt;
+      }
+
+      .vowel {
+        color: yellow;
+        -webkit-text-stroke: 4pt black;
+      }
+    </style>
+  </head>
+
+  <body></body>
+  <script>
+    const words = "for,you,not,new,was,can,has,but,our,may,out,see,his,web,\
         now,get,how,top,had,day,buy,her,set,map,way,did,car,him,big,law,non,\
         low,man,job,too,men,box,gay,air,yes,hot,say,dec,san,tax,got,let,red,\
         key,few,pay,war,nov,fax,yet,sun,run,net,put,log,faq,fun,feb,sep,lot,\
@@ -36,9 +52,9 @@
         val,hub,sue,seo,rap,tin,oem,rat,dos,cod,gen,gel,aaa,vid,pal,mat,\
         gym,tan,pie,bow,cab,dam,tub,tap,bee,pit,ton,cow,rid,rip,bat,lip,sap,\
         dig,rim,pig,lit,fog,fur,tar,rug,ham,jar,wax,nut,bye,lap,gem,gig,fin,\
-        mud,dip,lid,hay,cop,dim,sip,pod,wit,mug".split(',');
+        mud,dip,lid,hay,cop,dim,sip,pod,wit,mug".split(",");
 
-        const more = '\
+    const more = "\
         cab, dab, gab, jab, lab, nab, tab, blab, crab, grab, scab, stab, slab,\
         bat, cat, fat, hat, mat, pat, rat, sat, vat, brat, chat, flat, gnat, spat,\
         bad, dad, had, lad, mad, pad, sad, tad, glad,\
@@ -79,25 +95,25 @@
         bud, cud, dud, mud, spud, stud, thud,\
         buck, duck, luck, muck, puck, suck, tuck, yuck, chuck, cluck, pluck, stuck, truck,\
         gush, hush, lush, mush, rush, blush, brush, crush, flush, slush,\
-        pup, cup, bus'.split(',');;
+        pup, cup, bus".split(",");
 
-
-        document.body.onclick = (e) => {
-            while (document.body.firstChild) {
-                document.body.removeChild(document.body.firstChild); }
-            const del = document.createElement('div');
-            word = more[Math.floor(Math.random()*more.length)].trim();
-            for (l of word) {
-                const sel = document.createElement('span');
-                    sel.innerText = l;
-                if ('aeiouy'.includes(l)) {
-                    sel.className = 'vowel';
-                }
-                del.appendChild(sel);
-            }
-            document.body.appendChild(del);
+    document.body.onclick = (e) => {
+      while (document.body.firstChild) {
+        document.body.removeChild(document.body.firstChild);
+      }
+      const del = document.createElement("div");
+      word = more[Math.floor(Math.random() * more.length)].trim();
+      for (l of word) {
+        const sel = document.createElement("span");
+        sel.innerText = l;
+        if ("aeiouy".includes(l)) {
+          sel.className = "vowel";
         }
+        del.appendChild(sel);
+      }
+      document.body.appendChild(del);
+    };
 
-        document.body.onclick();
-    </script>
+    document.body.onclick();
+  </script>
 </html>
