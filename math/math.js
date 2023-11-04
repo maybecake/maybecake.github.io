@@ -1,16 +1,23 @@
-function generateSingleMathQuestion(num1, num2) {
-  // Generate a random operation symbol.
+function generateSingleMathQuestion(num1, num2, noNegatives = false) {
   const operationSymbols = ["+", "-"];
   const operationSymbol =
     operationSymbols[Math.floor(Math.random() * operationSymbols.length)];
+
+  let a = num1;
+  let b = num2;
+
+  if (noNegatives && operationSymbol == "+") {
+    a = Math.min(num1, num2);
+    b = Math.max(num1, num2);
+  }
 
   // Randomly place the box in the question.
   if (Math.random() < 0.3) {
     return `${num1} ${operationSymbol} ${num2} = <input type="number" class="box">`;
   } else if (Math.random() < 0.5) {
-    return `${num1} ${operationSymbol} <input type="number" class="box"> = ${num2}`;
+    return `${a} ${operationSymbol} <input type="number" class="box"> = ${b}`;
   } else {
-    return `<input type="number" class="box"> ${operationSymbol} ${num1} = ${num2}`;
+    return `<input type="number" class="box"> ${operationSymbol} ${a} = ${b}`;
   }
 }
 
@@ -27,27 +34,27 @@ function generateTwoMathQuestions(num1, num2, num3, num4) {
 }
 
 function generateRandomNumbersWithProbability(probability) {
-    // Generate a random number between 0 and 1.
-    const randomNumber = Math.random();
+  // Generate a random number between 0 and 1.
+  const randomNumber = Math.random();
 
-    // If the random number is less than the probability, generate a number smaller than 10.
-    // Otherwise, generate a number larger than or equal to 10.
-    if (randomNumber < probability) {
-        return Math.floor(Math.random() * (20 - 10) + 10);
-    } else {
-        return Math.floor(Math.random() * 10);
-    }
+  // If the random number is less than the probability, generate a number smaller than 10.
+  // Otherwise, generate a number larger than or equal to 10.
+  if (randomNumber < probability) {
+    return Math.floor(Math.random() * (15 - 10) + 10);
+  } else {
+    return Math.floor(Math.random() * 10);
   }
+}
 
 // Generate a list of 4-tuple numbers, less than 20.
 const numRows = 20;
-const difficulty = 0.3
+const difficulty = 0.3;
 
 const numbers = [];
 for (let i = 0; i < numRows; i++) {
   const innerNumbers = [];
   for (let j = 0; j < 4; j++) {
-    innerNumbers.push(generateRandomNumbersWithProbability(.3));
+    innerNumbers.push(generateRandomNumbersWithProbability(0.3));
   }
   numbers.push(innerNumbers);
 }
