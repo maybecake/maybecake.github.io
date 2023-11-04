@@ -1,0 +1,45 @@
+body {
+    font-size: 20px;
+    font-family: 'Allura', 'Dancing Script', 'Pacifico', 'Lobster', 'Great Vibes', 'Alex Brush', 'Parisienne', 'Kristi', 'Yellowtail', 'Qwigley', 'Arizona', 'Cursive Script', 'Brush Script MT', 'Marker Script', 'Comic Sans MS', 'Segoe Script', 'Monotype Corsiva', 'Lucida Calligraphy', cursive;
+
+  }
+
+  .questions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .question {
+    margin: 10px;
+  }
+
+  .question p {
+    font-size: 20px;
+  }
+
+  .box {
+    width: 50px;
+    text-align: center;
+    border: 1px solid black;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 500px;
+    margin: 0 auto;
+  }
+
+  th,
+  td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid black;
+  }
+
+  input.box {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    border: 1px solid black;
+  }
