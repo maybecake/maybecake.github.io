@@ -4,10 +4,106 @@ body {
 
   }
 
+  @media print {
+    .no-print {
+      display: none !important;
+    }
+  }
+/*
+  .controls {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    gap: 8px;
+  }
+
+  .control-row {
+    display: flex;
+  }
+
+  .control-row input {
+    width: 80px;
+  }
+  .control-row label {
+    width: 200px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  #difficulty-slider {
+    width: 200px;
+  }
+
   .questions {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+  } */
+
+
+  .controls {
+    background: linear-gradient(135deg,#126e82  10%,  #009688 100%);
+    padding: 20px;
+    border-radius: 5px;
+    width: 250px;
+  }
+
+  .control-row {
+    display: flex;
+    margin-bottom: 10px;
+  }
+
+  .control-row label {
+    font-size: 16px;
+    color: white;
+    width: 130px;
+  }
+
+  .control-row input,
+  .control-row select,
+  .control-row span {
+    padding: 5px 20px;
+    border: 1px solid #35bdc0;
+    border-radius: 9px;
+    background: #083d49;
+    color: white;
+    width: 80px;
+  }
+
+  input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+  }
+
+  .control-row span {
+    background-color: #77dadb;
+    display: flex;
+  }
+
+  .control-row select {
+    background: #083d49;
+  }
+
+  .control-row input[type="range"] {
+    margin: 0;
+    padding: 0;
+  }
+
+
+  .control-row button {
+    flex:1;
+    margin-top: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background: #023530;
+    color: white;
+  }
+
+  .tiny {
+    font-size: 10px;
+    font-style: italic;
+    text-align: right;
+    color: #f2f2f2;
   }
 
   .question {
@@ -32,9 +128,10 @@ body {
 
   th,
   td {
-    padding: 10px;
+    padding: 20px 10px;
     text-align: center;
-    border: 1px solid black;
+    border: 1px solid #aaa;
+    border-radius: 5px;
   }
 
   input.box {
