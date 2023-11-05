@@ -250,6 +250,32 @@ const WINRY_UNICORN = new Book(
   ["", "winry_unicorn.png"]
 );
 
+/* Generated and tokenized via Bard. Prompt:
+
+Write a simple story about a kindergarden girl named hana. Hana tries to walk
+home alone, but gets a bit distracted by some animals. she comes home late and
+doesn't have TV time.
+
+The story should be about 4 paragraphs long and use very
+simple words. Do not use words that are more than two syllables. Do not use any contractions.
+
+Format the story as a 2d javascript array where each top level element is a
+page and subarray elements are lines. Each page should have a max of 3 lines
+and each line is shorter than 80 characters long.
+
+Create new Book object constructor where the first parameter
+is the name of the story and the second one is the array.
+
+*/
+const hanaAndTheDistraction = new Book("Hana and the Distraction", [
+  ["Once upon a time, there was a kindergarten girl named Hana.", "Hana was a curious girl who loved to explore.", "One day, Hana was walking home from school when she saw a group of children playing in the park."],
+  ["Hana stopped to watch the children play.", "They were playing tag and chasing each other around.", "Hana wanted to join in the fun, but she knew that she needed to go home."],
+  ["Hana took a deep breath and started walking again.", "But after a few steps, she saw a squirrel in a tree.", "The squirrel was chasing an acorn, and Hana could not help but stop to watch again."],
+  ["Hana watched the squirrel for a long time.", "She forgot all about time and her promise to go home.", "When she finally looked up, the sun was setting and she knew she was in trouble."],
+  ["Hana ran as fast as she could, but she was still late.", "When she got home, her mom was waiting for her.", "Hana's mom was upset that Hana was late, but she was more upset that Hana had broken her promise."],
+  ["Hana's mom told her that she could not watch TV that night because she was late.", "Hana was sad, but she knew that her mom was right.", "She learned her lesson that day: it is important to keep your promises and to be aware of your surroundings."],
+]);
+
 export const BOOKS = [
   WINRY_UNICORN,
   ADAM_FIND_HANA,
@@ -258,6 +284,7 @@ export const BOOKS = [
   ZOO_BOOK,
   WORD_BOOK,
   BEACH_BOOK,
+  hanaAndTheDistraction,
 ];
 
 // for (let key in localStorage) {
@@ -270,7 +297,15 @@ export const BOOKS = [
 // localStorage.setItem("story-1", JSON.stringify('WINRY_UNICORN'))
 
 /*
+Write a simple story about a kindergarden girl named hana. Hana tries to walk
+home alone, but gets a bit distracted by some animals. she comes home late and
+doesn't have TV time. The story should be about 4 paragraphs long and use very
+simple words. Do not use words that are more than two syllables. Do not use any contractions.
+
 Format the story as a 2d javascript array where each top level element is a
 page and subarray elements are lines. Each page should have a max of 3 lines
 and each line is shorter than 80 characters long.
+
+Create new Book object constructor where the first parameter
+is the name of the story and the second one is the array.
 */
