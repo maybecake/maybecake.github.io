@@ -1,3 +1,5 @@
+import { generateMultiAddQuestions } from "./math_add.mjs"
+
 function generateSingleMathQuestion(
   num1,
   num2,
@@ -89,10 +91,9 @@ function generateQuestions(
   operations,
   allowNegatives,
   maxNumber,
-  difficulty
+  difficulty,
+  mathHomeworkRowsElement,
 ) {
-  removeAllChildren(mathHomeworkRowsElement);
-
   // Generate a list of 4-tuple numbers, less than 20.
   difficulty = difficulty / 100.0;
 
@@ -122,51 +123,62 @@ function generateQuestions(
   }
 }
 
-const numRowsInput = document.getElementById("num-rows");
+
+const typeDropdown = document.getElementById("type-dropdown");
 const operationDropdown = document.getElementById("operation-dropdown");
+const numRowsInput = document.getElementById("num-rows");
 const allowNegativesCheckbox = document.getElementById("allow-negatives");
 const maxNumberInput = document.getElementById("max-number");
 const difficultySlider = document.getElementById("difficulty-slider");
 
-operationDropdown.addEventListener("change", function () {
-  // Update the difficulty of the questions based on the selected operation.
-  updateDifficulty();
-});
+const simpleControls = document.getElementById("simple-controls")
+const multiAddControls = document.getElementById("multi-add-controls")
 
-allowNegativesCheckbox.addEventListener("change", function () {
-  // Update the difficulty of the questions based on whether or not negative numbers are allowed.
-  updateDifficulty();
-});
+typeDropdown.addEventListener("change", updateQuestions);
+operationDropdown.addEventListener("change", updateQuestions);
+allowNegativesCheckbox.addEventListener("change", updateQuestions);
+maxNumberInput.addEventListener("input", updateQuestions)
+difficultySlider.addEventListener("input", updateQuestions);
+numRowsInput.addEventListener("input", updateQuestions);
 
-maxNumberInput.addEventListener("input", function () {
-  // Update the difficulty of the questions based on the maximum number allowed.
-  updateDifficulty();
-});
 
-difficultySlider.addEventListener("input", function () {
-  // Update the difficulty of the questions based on the difficulty slider.
-  updateDifficulty();
-});
+function showControls(controls) {
+  simpleControls.className = 'hidden';
+  multiAddControls.className = 'hidden';
+  controls.className = '';
+}
 
-numRowsInput.addEventListener("input", function () {
-  // Update the difficulty of the questions based on the number of rows.
-  updateDifficulty();
-});
 
-function updateDifficulty() {
+function updateQuestions() {
   const numRows = numRowsInput.value;
+  const type = typeDropdown.value;
   const operation = operationDropdown.value;
   const allowNegatives = allowNegativesCheckbox.checked;
   const maxNumber = maxNumberInput.value;
   const difficulty = difficultySlider.value;
 
-  const questions = generateQuestions(
-    numRows,
-    operation,
-    allowNegatives,
-    maxNumber,
-    difficulty
-  );
+  removeAllChildren(mathHomeworkRowsElement);
+
+  switch (type) {
+    case 'multi-add':
+      showControls(multiAddControls);
+      generateMultiAddQuestions(
+        18,
+        4,
+        mathHomeworkRowsElement,
+      );
+      break;
+    default:
+      showControls(simpleControls);
+      generateQuestions(
+        numRows,
+        operation,
+        allowNegatives,
+        maxNumber,
+        difficulty,
+        mathHomeworkRowsElement
+      );
+  }
 }
 
-updateDifficulty();
+updateQuestions();

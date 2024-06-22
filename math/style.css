@@ -1,142 +1,137 @@
 body {
-    font-size: 20px;
-    font-family: "Patrick Hand", "Playpen Sans", sans-serif;
+  font-size: 20px;
+  font-family: "Patrick Hand", "Playpen Sans", sans-serif;
+}
 
+.hidden {
+  display: none;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
   }
+}
 
-  @media print {
-    .no-print {
-      display: none !important;
-    }
-  }
-/*
-  .controls {
-    display: flex;
-    flex-direction: column;
-    width: 500px;
-    gap: 8px;
-  }
+.controls {
+  background: linear-gradient(135deg, #126e82 10%, #009688 100%);
+  padding: 20px;
+  border-radius: 5px;
+  width: 250px;
+}
 
-  .control-row {
-    display: flex;
-  }
+.control-row {
+  display: flex;
+  margin-bottom: 10px;
+}
 
-  .control-row input {
-    width: 80px;
-  }
-  .control-row label {
-    width: 200px;
-    border-bottom: 1px solid #ddd;
-  }
+.control-row label {
+  font-size: 16px;
+  color: white;
+  width: 130px;
+}
 
-  #difficulty-slider {
-    width: 200px;
-  }
+.control-row input,
+.control-row select,
+.control-row span {
+  padding: 5px 20px;
+  border: 1px solid #35bdc0;
+  border-radius: 9px;
+  background: #083d49;
+  color: white;
+  width: 80px;
+}
 
-  .questions {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-  } */
+.control-row select {
+  width: 120px;
+}
 
+input[type="checkbox"] {
+  width: 22px;
+  height: 22px;
+}
 
-  .controls {
-    background: linear-gradient(135deg,#126e82  10%,  #009688 100%);
-    padding: 20px;
-    border-radius: 5px;
-    width: 250px;
-  }
+.control-row span {
+  background-color: #77dadb;
+  display: flex;
+}
 
-  .control-row {
-    display: flex;
-    margin-bottom: 10px;
-  }
+.control-row select {
+  background: #083d49;
+}
 
-  .control-row label {
-    font-size: 16px;
-    color: white;
-    width: 130px;
-  }
-
-  .control-row input,
-  .control-row select,
-  .control-row span {
-    padding: 5px 20px;
-    border: 1px solid #35bdc0;
-    border-radius: 9px;
-    background: #083d49;
-    color: white;
-    width: 80px;
-  }
-
-  input[type="checkbox"] {
-    width: 22px;
-    height: 22px;
-  }
-
-  .control-row span {
-    background-color: #77dadb;
-    display: flex;
-  }
-
-  .control-row select {
-    background: #083d49;
-  }
-
-  .control-row input[type="range"] {
-    margin: 0;
-    padding: 0;
-  }
+.control-row input[type="range"] {
+  margin: 0;
+  padding: 0;
+}
 
 
-  .control-row button {
-    flex:1;
-    margin-top: 10px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    background: #023530;
-    color: white;
-  }
+.control-row button {
+  flex: 1;
+  margin-top: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background: #023530;
+  color: white;
+}
 
-  .tiny {
-    font-size: 10px;
-    font-style: italic;
-    text-align: right;
-    color: #f2f2f2;
-  }
+.tiny {
+  font-size: 10px;
+  font-style: italic;
+  text-align: right;
+  color: #f2f2f2;
+}
 
-  .question {
-    margin: 10px;
-  }
+.question {
+  margin: 10px;
+}
 
-  .question p {
-    font-size: 20px;
-  }
+.question p {
+  font-size: 20px;
+}
 
-  .box {
-    width: 50px;
-    text-align: center;
-    border: 1px solid black;
-  }
+.question-block {
+  float: left;
+  border: 1px solid #ddd;
+  padding: .5em;
+  width: 6.5em;
+}
 
-  table {
-    border-collapse: collapse;
-    width: 500px;
-    margin: 0 auto;
-  }
+.box {
+  width: 50px;
+  text-align: center;
+  border: 1px solid black;
+}
 
-  th,
-  td {
-    padding: 20px 10px;
-    text-align: center;
-    border: 1px solid #aaa;
-    border-radius: 5px;
-  }
+table {
+  border-collapse: collapse;
+  width: 500px;
+  margin: 0 auto;
+}
 
-  input.box {
-    width: 30px;
-    height: 30px;
-    text-align: center;
-    border: 1px solid black;
-  }
+th,
+td {
+  padding: 20px 10px;
+  text-align: center;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+}
+
+input.box {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  border: 1px solid black;
+}
+
+
+.multi-digit-number {
+  text-align: right;
+  letter-spacing: .5em;
+}
+
+.multi-digit-answer {
+  border-top: 2px solid #000;
+  height: 2em;
+}
