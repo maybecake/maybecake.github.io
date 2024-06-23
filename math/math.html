@@ -13,6 +13,9 @@
 
     gtag("config", "G-HTZJKESPJH");
   </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
   <title>Math Questions</title>
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -23,10 +26,12 @@
       <label for="type-dropdown">Type</label>
       <select id="type-dropdown">
         <option value="simple">Simple math</option>
-        <option value="multi-add" selected>Multi digit add</option>
+        <option value="multi-digit" selected>Multi digit</option>
       </select>
     </div>
-    <div id="simple-controls">
+    <div id="simple-controls"></div>
+    <div id="multi-digit-controls"></div>
+    <div id="common-controls">
       <div class="control-row">
         <label for="operation-dropdown">Operations</label>
         <select id="operation-dropdown">
@@ -35,21 +40,17 @@
           <option value="+,-,×">+, -, ×</option>
         </select>
       </div>
-    </div>
-    <div id="multi-add-controls"></div>
-    <div id="common-controls">
       <div class="control-row">
         <label for="allow-negatives">Allow negatives</label>
         <input type="checkbox" id="allow-negatives" />
       </div>
-
       <div class="control-row">
         <label for="max-number">Max number</label>
         <input type="number" id="max-number" value="20" />
       </div>
       <div class="control-row">
-        <label for="num-rows">Number of rows</label>
-        <input type="number" id="num-rows" value="10" />
+        <label for="num-questions">Number of questions</label>
+        <input type="number" id="num-questions" value="21" />
       </div>
       <div class="control-row">
         <label for="difficulty-slider">Difficulty</label>
@@ -57,15 +58,23 @@
           <input type="range" id="difficulty-slider" min="0" max="100" value="20" />
         </span>
       </div>
+      <div class="control-row">
+        <input id="date-input" type="date" />
+      </div>
+    </div>
+    <div class="control-row">
+      <button id="regenerate">Regenerate</button>
     </div>
     <div class="control-row">
       <button onclick="window.print();">Print Page</button>
     </div>
     <p class="tiny">Styled by Bard!</p>
   </div>
-  <table>
-    <tbody id="math-homework-rows"></tbody>
-  </table>
+  <div id="header">
+    <div>Name ___________________</div>
+    <div>Date: <span id="date-output"></span></div>
+  </div>
+  <div id="math-homework-questions"></div>
   <script type="module" src="math.js"></script>
 </body>
 
