@@ -3,13 +3,14 @@ import { generateSimpleQuestions } from "./math_simple.mjs"
 
 
 function updateDates(e) {
-  console.log(e.target.value);
+  console.log('set date output', e.target.value);
   document.getElementById("date-output").innerText = e.target.value ?? '____________';
 }
 
 const dateInput = document.getElementById("date-input");
 dateInput.onchange = updateDates;
 dateInput.valueAsDate = new Date();
+dateInput.dispatchEvent(new Event('change'));
 
 const homeworkContainer = document.getElementById("math-homework-questions");
 
