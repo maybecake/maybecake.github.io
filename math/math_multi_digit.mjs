@@ -1,8 +1,8 @@
 // Multi digit addition
 
-function generateQuestion(maxNumber, operation, noNegatives) {
-    let a = Math.floor(Math.random() * (maxNumber));
-    let b = Math.floor(Math.random() * (maxNumber));
+function generateQuestion(maxNumber, minNumber, operation, noNegatives) {
+    let a = Math.floor(Math.random() * (maxNumber - minNumber + 1)) + minNumber;
+    let b = Math.floor(Math.random() * (maxNumber - minNumber + 1)) + minNumber;
     if (operation == '-' && noNegatives && b > a) [a, b] = [b, a];
 
     const question = document.createElement('div');
@@ -34,6 +34,7 @@ export function generateMultiDigitQuestions(
     operations,
     allowNegatives,
     maxNumber,
+    minNumber,
     homeworkContainer,
 ) {
     const operationSymbols = operations.split(",");
@@ -41,6 +42,6 @@ export function generateMultiDigitQuestions(
         const operation =
             operationSymbols[Math.floor(Math.random() * operationSymbols.length)];
         homeworkContainer.appendChild(
-            generateQuestion(maxNumber, operation, !allowNegatives))
+            generateQuestion(maxNumber, minNumber, operation, !allowNegatives))
     }
 }

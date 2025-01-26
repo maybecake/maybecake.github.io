@@ -13,9 +13,9 @@ function generateRandomNumbersWithProbability(probability, maxNumber) {
     }
 }
 
-function generateQuestion(maxNumber, operation, noNegatives) {
-    let a = Math.floor(Math.random() * maxNumber);
-    let b = Math.floor(Math.random() * maxNumber);
+function generateQuestion(maxNumber, minNumber, operation, noNegatives) {
+    let a = Math.floor(Math.random() * (maxNumber - minNumber + 1)) + minNumber;
+    let b = Math.floor(Math.random() * (maxNumber - minNumber + 1)) + minNumber;
     let s = a + b;
 
     const question = document.createElement('div');
@@ -49,6 +49,7 @@ export function generateSimpleQuestions(
     operations,
     allowNegatives,
     maxNumber,
+    minNumber,
     difficulty,
     homeworkContainer,
 ) {
@@ -57,6 +58,6 @@ export function generateSimpleQuestions(
         const operation =
             operationSymbols[Math.floor(Math.random() * operationSymbols.length)];
         homeworkContainer.appendChild(
-            generateQuestion(maxNumber, operation, !allowNegatives));
+            generateQuestion(maxNumber, minNumber, operation, !allowNegatives));
     }
 };
