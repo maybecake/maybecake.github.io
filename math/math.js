@@ -13,12 +13,12 @@ dateInput.valueAsDate = new Date();
 
 const homeworkContainer = document.getElementById("math-homework-questions");
 
-
 const typeDropdown = document.getElementById("type-dropdown");
 const operationDropdown = document.getElementById("operation-dropdown");
 const numQuestionsInput = document.getElementById("num-questions");
 const allowNegativesCheckbox = document.getElementById("allow-negatives");
 const maxNumberInput = document.getElementById("max-number");
+const minNumberInput = document.getElementById("min-number");
 const difficultySlider = document.getElementById("difficulty-slider");
 
 const simpleControls = document.getElementById("simple-controls")
@@ -28,6 +28,7 @@ typeDropdown.addEventListener("change", updateQuestions);
 operationDropdown.addEventListener("change", updateQuestions);
 allowNegativesCheckbox.addEventListener("change", updateQuestions);
 maxNumberInput.addEventListener("input", updateQuestions)
+minNumberInput.addEventListener("input", updateQuestions);
 difficultySlider.addEventListener("input", updateQuestions);
 numQuestionsInput.addEventListener("input", updateQuestions);
 
@@ -50,7 +51,8 @@ function updateQuestions() {
   const type = typeDropdown.value;
   const operations = operationDropdown.value;
   const allowNegatives = allowNegativesCheckbox.checked;
-  const maxNumber = maxNumberInput.value;
+  const maxNumber = parseInt(maxNumberInput.value);
+  const minNumber = parseInt(minNumberInput.value);
   const difficulty = difficultySlider.value;
 
   removeAllChildren(homeworkContainer);
@@ -63,6 +65,7 @@ function updateQuestions() {
         operations,
         allowNegatives,
         maxNumber,
+        minNumber,
         homeworkContainer
       );
       break;
@@ -73,6 +76,7 @@ function updateQuestions() {
         operations,
         allowNegatives,
         maxNumber,
+        minNumber,
         difficulty,
         homeworkContainer
       );
