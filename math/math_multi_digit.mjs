@@ -34,13 +34,34 @@ export function generateMultiDigitQuestions(
     operations,
     allowNegatives,
     maxNumber,
-    homeworkContainer,
+    minNumber,
+    homeworkContainer
 ) {
-    const operationSymbols = operations.split(",");
+    const options = {
+        maxNumber: Number(maxNumber),
+        minNumber: Number(minNumber),
+        allowNegatives,
+        operations: operations.split(","),
+        numQuestions
+    };
+
     for (let i = 0; i < numQuestions; i++) {
-        const operation =
-            operationSymbols[Math.floor(Math.random() * operationSymbols.length)];
-        homeworkContainer.appendChild(
-            generateQuestion(maxNumber, operation, !allowNegatives))
+        const operation = options.operations[Math.floor(Math.random() * options.operations.length)];
+        // Fix the random number generation
+        let a = Number(minNumber) + Math.floor(Math.random() * (Number(maxNumber) - Number(minNumber) + 1));
+        let b = Number(minNumber) + Math.floor(Math.random() * (Number(maxNumber) - Number(minNumber) + 1));
+
+        if (operation === '-' && !allowNegatives && b > a) {
+            [a, b] = [b, a];
+        }
+
+        const question = document.createElement('div');
+        question.classList.add('question-block', 'multi-digit');
+        question.innerHTML = `
+            <div class="multi-digit-number">${a}</div>
+            <div class="multi-digit-number"><span style="float:left">${operation}</span>${b}</div>
+            <div class="multi-digit-answer"></div>
+        `;
+        homeworkContainer.appendChild(question);
     }
 }
