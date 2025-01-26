@@ -3,7 +3,6 @@ import { generateSimpleQuestions } from "./math_simple.mjs"
 
 
 function updateDates(e) {
-  console.log('set date output', e.target.value);
   document.getElementById("date-output").innerText = e.target.value ?? '____________';
 }
 
